@@ -29,7 +29,7 @@ p{
     width: 80%;
     margin: 0px 20px;
 }
-.pointing-img{
+.pointing{
     padding: 120px 0px 0px 0px;
 }
 .call-to-action-button{
@@ -58,19 +58,21 @@ p{
 
 #dream-big{
     background-image: url(../images/dream-bg.png);
+    background-size: 80px;
     background-repeat: no-repeat;
     background-position: right;
-    padding-right: 130px;
+    padding-right: 80px;
 }
 
 #exprience{
     background-image: url(../images/exp-bg.png);
     background-repeat: no-repeat;
+    background-position: left;
 }
 
 .text-container{
-    width: 30%;
-    border-left: 5px solid orange;
-    margin: 15px;
+    background-color: white;
+    border-left: 7px solid orange;
+    margin: 80px;
     padding: 15px;
 }
