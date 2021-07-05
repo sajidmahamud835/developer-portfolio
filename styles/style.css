@@ -13,7 +13,7 @@ h1{
 .apostrophe{
     color: #ff7300ce;
 }
-section{
+.felxible-container{
     display: flex;
     margin-bottom: 100px;
 }
