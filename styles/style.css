@@ -1,14 +1,12 @@
 body{
     font-family: 'Poppins', sans-serif;
-    margin: 0px;
+    margin: 0px 8px 0px 0px;
 }
 h1{
     font-size: 50px;
     margin: 0px;
 }
-p{
-    text-align: justify;
-}
+
 .header-name{
     color: orange;
 }
@@ -22,6 +20,11 @@ section{
 .half-width {
     width: 50%;
     padding-left: 10%;
+}
+.half-width p{
+    color: dimgray;
+    text-align: justify;
+    padding: 0px 0px;
 }
 .half-width img{
     width: 80%;
