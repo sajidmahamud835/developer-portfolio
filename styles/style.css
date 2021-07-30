@@ -1,61 +1,120 @@
+/* --------------------------------
+    common css and utilities 
+----------------------------------*/
+
 body{
     font-family: 'Poppins', sans-serif;
-    margin: 0;
+    margin: auto;
+    max-width: 1700px;
 }
+
 h1{
     font-size: 50px;
     margin: 0px;
 }
+
 h2{
     font-size: 40px;
 }
-.colored-header{
-    color: orange;
-}
-.apostrophe{
-    color: #ff7300ce;
-}
-.felxible-container{
-    display: flex;
-    margin-bottom: 100px;
-}
-.half-width {
-    width: 50%;
-    padding-left: 10%;
-}
+
 p{
     color: dimgray;
     padding: 0px 0px;
 }
+
+/* font colors */
+
+.text-orange{
+    color: orange;
+}
+
+.text-red{
+    color: red;
+}
+
+/* elements and containers */
+section{
+    margin-bottom: 100px;
+}
+
+.container{
+    margin: 0 4.2em;
+}
+
+.half-width {
+    width: 40%;
+    max-width: 600px;
+}
+
 .half-width img{
-    width: 80%;
+    width: 100%;
 }
-.pointing{
-    padding-top: 120px;
+
+/* display and alingment */
+.flex{
+    display: flex;
+    justify-content: space-between;
 }
-.call-to-action-button{
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.vartical-center{
+    align-items: center;
+}
+
+
+/* buttons */
+.anchor-button{
     text-transform: uppercase;
     text-decoration: none;
     color: white;
     font-weight: 600;
-    background: linear-gradient(45deg, lightsalmon, tomato);
     padding: 5px 35px;
     border-radius: 5px;
 }
-.call-to-action-button2{
-        text-transform: uppercase;
-        text-decoration: none;
-        color: white;
-        font-weight: 600;
-        background: linear-gradient(45deg, #ff008c, #ff47d7);
-        padding: 5px 35px;
-        border-radius: 5px;
-    
+
+.button-bg-primary,
+.container:hover .button-bg-secondary{
+    background: linear-gradient(45deg, lightsalmon, tomato);
 }
+
+.button-bg-secondary,
+.container:hover .button-bg-primary{
+    background: linear-gradient(45deg, #ff008c, #ff47d7);
+}
+
+/* stylish border */
+.border-style-1{
+    border-left: 7px solid;
+    border-image: linear-gradient(180deg, lightsalmon, tomato);
+    border-image-slice: 1;
+}
+.border-style-2{
+    border-left: 7px solid;
+    border-image: linear-gradient(180deg, #ff008c, #ff47d7);
+    border-image-slice: 1;
+}
+.border-style-3{
+    border-left: 7px solid;
+    border-image: linear-gradient(180deg, blue, cyan);
+    border-image-slice: 1;
+}
+
+/* --------------------
+    top banner section 
+-----------------------*/
 #top-banner{
     background-image: url(../images/top-banner.png);
     background-repeat: no-repeat;
 }
+
+/* --------------------
+    dream big section
+----------------------*/
 
 #dream-big{
     background-image: url(../images/dream-bg.png);
@@ -65,35 +124,71 @@ p{
     padding-right: 80px;
 }
 
+/* -------------------
+    exprience section
+---------------------*/
 #exprience{
     background-image: url(../images/exp-bg.png);
     background-repeat: no-repeat;
     background-position: left;
 }
 
-.text-container{
+.info-box{
     background-color: #ffffffef;
     border-radius: 5px;
-    width: 30%;
-    margin-left: 30px;
-    padding-left: 15px ;
+    margin: 5px;
+    padding: 5px;
     box-shadow: 5px 10px 18px gray;
 }
-#box-border1{
-    border-left: 7px solid;
-    border-image: linear-gradient(180deg, lightsalmon, tomato);
-    border-image-slice: 1;
-}
-#box-border2{
-    border-left: 7px solid;
-    border-image: linear-gradient(180deg, #ff008c, #ff47d7);
-    border-image-slice: 1;
-}
-#box-border3{
-    border-left: 7px solid;
-    border-image: linear-gradient(180deg, blue, cyan);
-    border-image-slice: 1;
-}
-footer{
+
+/* --------------------
+    footer section
+----------------------- */
+footer p{
     text-align: center;
+}
+
+
+/* -----------------
+    media quaries
+------------------- */
+/* medium devices */
+@media only screen and (max-width:992px) {
+    h1{
+        font-size: 35px; 
+        display: inline;
+       }
+       p{
+           text-align: justify;
+       }
+       .container{
+           margin: 0 1em;
+       }
+       .half-width {
+           width: 100%;
+       }
+       .half-width img{
+           margin: 10% 0;
+       }
+       .flex{
+           flex-wrap: wrap;
+       }
+       #dream-big{
+           padding-right: 0px;
+       }
+
+       .grid{
+        grid-template-columns: 1fr 1fr;
+        }
+       .anchor-button{
+        display: inline-block;
+        margin: 2px 0;
+    }
+}
+/* small devices */
+@media only screen and (max-width: 688px) {
+
+    .grid{
+        grid-template-columns: 1fr;
+    }
 }
