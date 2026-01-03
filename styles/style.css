@@ -2,42 +2,42 @@
     common css and utilities 
 ----------------------------------*/
 
-body{
+body {
     font-family: 'Poppins', sans-serif;
     margin: auto;
     max-width: 1700px;
 }
 
-h1{
+h1 {
     font-size: 50px;
     margin: 0px;
 }
 
-h2{
+h2 {
     font-size: 40px;
 }
 
-p{
+p {
     color: dimgray;
     padding: 0px 0px;
 }
 
 /* font colors */
 
-.text-orange{
+.text-orange {
     color: orange;
 }
 
-.text-red{
+.text-red {
     color: red;
 }
 
 /* elements and containers */
-section{
+section {
     margin-bottom: 100px;
 }
 
-.container{
+.container {
     margin: 0 4.2em;
 }
 
@@ -46,29 +46,29 @@ section{
     max-width: 600px;
 }
 
-.half-width img{
+.half-width img {
     width: 100%;
 }
 
 /* display and alingment */
-.flex{
+.flex {
     display: flex;
     justify-content: space-between;
 }
 
-.grid{
+.grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
 }
 
-.vartical-center{
+.vartical-center {
     align-items: center;
 }
 
 
 /* buttons */
-.anchor-button{
+.anchor-button {
     text-transform: uppercase;
     text-decoration: none;
     color: white;
@@ -78,27 +78,29 @@ section{
 }
 
 .button-bg-primary,
-.container:hover .button-bg-secondary{
+.container:hover .button-bg-secondary {
     background: linear-gradient(45deg, lightsalmon, tomato);
 }
 
 .button-bg-secondary,
-.container:hover .button-bg-primary{
+.container:hover .button-bg-primary {
     background: linear-gradient(45deg, #ff008c, #ff47d7);
 }
 
 /* stylish border */
-.border-style-1{
+.border-style-1 {
     border-left: 7px solid;
     border-image: linear-gradient(180deg, lightsalmon, tomato);
     border-image-slice: 1;
 }
-.border-style-2{
+
+.border-style-2 {
     border-left: 7px solid;
     border-image: linear-gradient(180deg, #ff008c, #ff47d7);
     border-image-slice: 1;
 }
-.border-style-3{
+
+.border-style-3 {
     border-left: 7px solid;
     border-image: linear-gradient(180deg, blue, cyan);
     border-image-slice: 1;
@@ -107,7 +109,7 @@ section{
 /* --------------------
     top banner section 
 -----------------------*/
-#top-banner{
+#top-banner {
     background-image: url(../images/top-banner.png);
     background-repeat: no-repeat;
 }
@@ -116,7 +118,7 @@ section{
     dream big section
 ----------------------*/
 
-#dream-big{
+#dream-big {
     background-image: url(../images/dream-bg.png);
     background-size: 80px;
     background-repeat: no-repeat;
@@ -127,13 +129,13 @@ section{
 /* -------------------
     exprience section
 ---------------------*/
-#exprience{
+#exprience {
     background-image: url(../images/exp-bg.png);
     background-repeat: no-repeat;
     background-position: left;
 }
 
-.info-box{
+.info-box {
     background-color: #ffffffef;
     border-radius: 5px;
     margin: 5px;
@@ -144,7 +146,7 @@ section{
 /* --------------------
     footer section
 ----------------------- */
-footer p{
+footer p {
     text-align: center;
 }
 
@@ -154,41 +156,340 @@ footer p{
 ------------------- */
 /* medium devices */
 @media only screen and (max-width:992px) {
-    h1{
-        font-size: 35px; 
+    h1 {
+        font-size: 35px;
         display: inline;
-       }
-       p{
-           text-align: justify;
-       }
-       .container{
-           margin: 0 1em;
-       }
-       .half-width {
-           width: 100%;
-       }
-       .half-width img{
-           margin: 10% 0;
-       }
-       .flex{
-           flex-wrap: wrap;
-       }
-       #dream-big{
-           padding-right: 0px;
-       }
+    }
 
-       .grid{
+    p {
+        text-align: justify;
+    }
+
+    .container {
+        margin: 0 1em;
+    }
+
+    .half-width {
+        width: 100%;
+    }
+
+    .half-width img {
+        margin: 10% 0;
+    }
+
+    .flex {
+        flex-wrap: wrap;
+    }
+
+    #dream-big {
+        padding-right: 0px;
+    }
+
+    .grid {
         grid-template-columns: 1fr 1fr;
-        }
-       .anchor-button{
+    }
+
+    .anchor-button {
         display: inline-block;
         margin: 2px 0;
     }
 }
+
 /* small devices */
 @media only screen and (max-width: 688px) {
 
-    .grid{
+    .grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* ============================================
+   SPA COMPONENT STYLES
+   ============================================ */
+
+/* Section Titles */
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(45deg, tomato, orange);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+}
+
+/* Hero Section */
+.hero {
+    background-image: url(../images/top-banner.png);
+    background-repeat: no-repeat;
+    padding: 4rem 0;
+}
+
+.hero-title {
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.hero-description {
+    margin-bottom: 2rem;
+    line-height: 1.8;
+}
+
+.hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Timeline Styles */
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.timeline-item {
+    background: #fff;
+    padding: 1.5rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.timeline-date {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Skills Grid */
+.skill-card {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.skill-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.skill-card h4 {
+    margin: 0.5rem 0;
+    color: #333;
+}
+
+.skill-card p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Service Cards */
+.services-grid {
+    margin-bottom: 3rem;
+}
+
+.service-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.service-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.service-card h3 {
+    margin: 0 0 1rem;
+    color: #333;
+}
+
+.service-features {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.service-features li {
+    padding: 0.3rem 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.services-cta {
+    text-align: center;
+    padding: 3rem;
+    background: linear-gradient(135deg, #fff5f5, #fff8f0);
+    border-radius: 12px;
+}
+
+/* Portfolio Grid */
+.portfolio-grid {
+    margin-bottom: 3rem;
+}
+
+.project-card {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid tomato;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.project-title {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.project-language {
+    background: linear-gradient(45deg, lightsalmon, tomato);
+    color: #fff;
+    padding: 0.2rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.project-description {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.project-links .anchor-button {
+    font-size: 0.85rem;
+    padding: 0.4rem 1rem;
+}
+
+.portfolio-cta {
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Contact Form */
+.contact-wrapper {
+    gap: 3rem;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 0.8rem 1rem;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: tomato;
+}
+
+.form-status .success {
+    color: green;
+    padding: 1rem;
+    background: #e8f5e9;
+    border-radius: 8px;
+}
+
+/* Social Links */
+.social-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.social-links li a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    transition: background 0.3s ease;
+}
+
+.social-links li a:hover {
+    background: #fff5f5;
+}
+
+.social-icon {
+    font-size: 1.5rem;
+}
+
+.availability-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.2rem;
+    background: #e8f5e9;
+    border-radius: 30px;
+    color: #2e7d32;
+    font-weight: 500;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    background: #4caf50;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+/* Error Page */
+.error-page {
+    text-align: center;
+    padding: 5rem 2rem;
+}
+
+.error-page h1 {
+    font-size: 6rem;
+    background: linear-gradient(45deg, tomato, orange);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
