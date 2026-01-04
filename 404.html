@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Web Developer Sajid's Portfolio - Full Stack Developer specializing in modern web technologies">
+    <title>Web Developer Sajid's Portfolio</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <link rel="stylesheet" href="styles/wormhole.css">
+    <link rel="stylesheet" href="styles/mobile-nav.css">
+    <link rel="stylesheet" href="styles/modal.css">
+</head>
+
+<body>
+    <!-- Wormhole Overlay -->
+    <div id="wormhole-overlay">
+        <div class="wormhole">
+            <div class="photon-ring"></div>
+        </div>
+    </div>
+
+    <!-- Project Modal -->
+    <div id="project-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeProjectModal()">×</button>
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title">Project Name</h2>
+                <span class="modal-language" id="modal-language">Language</span>
+            </div>
+            <div class="modal-body">
+                <p class="modal-description" id="modal-description">Description</p>
+                <ul class="modal-features" id="modal-features"></ul>
+                <p class="modal-tech" id="modal-tech"></p>
+            </div>
+            <div class="modal-footer">
+                <a id="modal-github" href="#" target="_blank" class="anchor-button button-bg-primary">View on GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/developer-portfolio/" onclick="route(event)">
+                <span class="text-orange">Sajid</span>Dev
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/developer-portfolio/" onclick="route(event)" class="nav-link">Home</a></li>
+            <li><a href="/developer-portfolio/about" onclick="route(event)" class="nav-link">About</a></li>
+            <li><a href="/developer-portfolio/services" onclick="route(event)" class="nav-link">Services</a></li>
+            <li><a href="/developer-portfolio/portfolio" onclick="route(event)" class="nav-link">Portfolio</a></li>
+            <li><a href="/developer-portfolio/contact" onclick="route(event)" class="nav-link">Contact</a></li>
+        </ul>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <span class="hamburger"></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-nav">
+        <a href="/developer-portfolio/" onclick="route(event)" class="mobile-nav-link">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </a>
+        <a href="/developer-portfolio/about" onclick="route(event)" class="mobile-nav-link">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">About</span>
+        </a>
+        <a href="/developer-portfolio/services" onclick="route(event)" class="mobile-nav-link">
+            <span class="nav-icon">💼</span>
+            <span class="nav-label">Services</span>
+        </a>
+        <a href="/developer-portfolio/portfolio" onclick="route(event)" class="mobile-nav-link">
+            <span class="nav-icon">📁</span>
+            <span class="nav-label">Portfolio</span>
+        </a>
+        <a href="/developer-portfolio/contact" onclick="route(event)" class="mobile-nav-link">
+            <span class="nav-icon">✉️</span>
+            <span class="nav-label">Contact</span>
+        </a>
+    </nav>
+
+    <!-- Main App Container - Views render here -->
+    <main id="app">
+        <!-- Content injected by router -->
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Sajid Mahamud. All rights reserved.</p>
+    </footer>
+
+    <!-- Application Scripts -->
+    <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
