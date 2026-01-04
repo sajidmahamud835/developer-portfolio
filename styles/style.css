@@ -6,20 +6,28 @@ body {
     font-family: 'Poppins', sans-serif;
     margin: auto;
     max-width: 1700px;
+    background-color: #0f0f1a;
+    /* Dark background fallback */
+    color: #e0e0e0;
+    /* Light text default */
 }
 
 h1 {
     font-size: 50px;
     margin: 0px;
+    color: #ffffff;
 }
 
 h2 {
     font-size: 40px;
+    color: #ffffff;
 }
 
 p {
-    color: dimgray;
+    color: #b0b0b0;
+    /* Lighter grey for better contrast on dark bg */
     padding: 0px 0px;
+    line-height: 1.6;
 }
 
 /* font colors */
@@ -29,7 +37,8 @@ p {
 }
 
 .text-red {
-    color: red;
+    color: #ff4444;
+    /* Lighter red for better visibility on dark bg */
 }
 
 /* elements and containers */
