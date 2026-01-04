@@ -86,3 +86,8 @@
     --grad-primary: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
     --grad-card: linear-gradient(135deg, #ffffff, #f9f9f9);
 }
+
+[data-theme="light"] #top-banner {
+    background-image: url(../images/top-banner.png);
+    background-repeat: no-repeat;
+}

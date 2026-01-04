@@ -209,8 +209,8 @@ section {
     top banner section 
 -----------------------*/
 #top-banner {
-    background-image: url(../images/top-banner.png);
-    background-repeat: no-repeat;
+    /* No banner in dark mode */
+    background: none;
 }
 
 /* --------------------
