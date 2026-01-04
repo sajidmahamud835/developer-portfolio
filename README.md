@@ -16,6 +16,7 @@ This project follows a **Zero-Dependency** philosophy, proving that modern, dyna
 
 ### 🧩 Core Components
 - **Custom Router**: A lightweight client-side router using the generic History API to manage navigation states without page reloads.
+- **Local Data Modules**: All content (Portfolio, Services, Blog) is served instantaneously from local ES6 data modules, ensuring <50ms interaction times.
 - **Physics Engine**: Custom `wormhole.css` and JavaScript logic simulating a black hole accretion disk with gravitational distortion effects.
 - **Scroll Navigation**: A unique gesture-based navigation system that triggers "wormhole travel" when users scroll past page boundaries.
 
@@ -23,14 +24,15 @@ This project follows a **Zero-Dependency** philosophy, proving that modern, dyna
 | Category | Technology | Usage |
 |----------|------------|-------|
 | **Core** | HTML5, CSS3, ES6+ JS | Semantic structure, styling, and application logic. |
+| **Data** | ES6 Modules | Local JSON-like data structures for instant content loading. |
 | **Animation** | CSS Keyframes, JS Observers | High-performance 60fps animations and scroll-triggered reveals. |
 | **Physics** | CSS Transforms, Conic Gradients | Simulating the black hole visual effects (`wormhole.css`). |
-| **Integrations**| Calendly, Formspree | Embedded iframe scheduling and serverless form handling. |
+| **Integrations**| Formspree, Markdown Parser | Serverless form handling and dynamic content rendering. |
 
 ## ✨ Visual Features
 - **Wormhole Transitions**: A dramatic, full-screen transition effect simulating interstellar travel when changing routes.
 - **Glassmorphism**: Modern UI aesthetic with frosted glass backgrounds and subtle gradients.
-- **Interactive Buttons**: Pill-shaped animated buttons with shimmer effects and physics-based interactions.
+- **Interactive Cards**: Premium, hover-responsive cards for Projects and Services with physics-based lift effects.
 - **Mobile First**: Fully responsive design with a dedicated bottom navigation bar for mobile users.
 
 ## 🚀 Usage
@@ -40,7 +42,8 @@ Since this is a static site, you can simply open `index.html` in your browser or
 ```bash
 git clone https://github.com/sajidmahamud835/developer-portfolio.git
 cd developer-portfolio
-# Open index.html in your browser
+# Serve with any static server (e.g., Live Server, Vercel CLI, python http.server)
+vercel dev
 ```
 
 ## 🏷️ Repository Tags

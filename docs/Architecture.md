@@ -37,7 +37,14 @@ A custom engine that turns scrolling into a primary navigation method.
 *   **Wormhole Asset**: `assets/disk.png` (High-res accretion disk rendering).
 *   **Optimization**: Native `loading="lazy"` on images; CSS `will-change` properties for GPU acceleration.
 
-## 4. Deployment Architecture
+### 4. Data Layer (New)
+*   **Structure**: Data is decoupled from views using ES6 modules in `js/data/`.
+    *   `portfolio-data.js`: Project metadata, images, and tech stacks.
+    *   `gig-data.js`: Service offerings (Fiverr-style data).
+    *   `blog-data.js`: Blog posts metadata and paths.
+*   **Rendering**: Views import these modules directly, allowing for instant rendering (`O(1)`) without `fetch()` overhead for initial painting.
+
+## Deployment Architecture
 *   **Dual-Strategy**: Configured for seamless deployment on both GitHub Pages and Vercel.
 *   **GitHub Pages**:
     *   Uses `.nojekyll` to bypass Jekyll processing (allowing access to `_` prefixed directories if needed).
@@ -55,7 +62,8 @@ A custom engine that turns scrolling into a primary navigation method.
 ├── package.json          # Project Metadata & Scripts
 ├── js/
 │   ├── app.js            # Entry point & Router
-│   ├── views/            # Individual page components (home, about, etc.)
+│   ├── views/            # Individual page components (home, portfolio, services, blog)
+│   ├── data/             # Local data modules (gigs, portfolio, blog)
 │   └── utils/
 │       ├── scroll-nav.js # Wormhole logic
 │       └── ...

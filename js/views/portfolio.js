@@ -21,15 +21,14 @@ export function render() {
                 </div>
                 
                 <!-- Project Grid -->
-                <div class="portfolio-grid grid-3">
+                <div class="portfolio-grid grid-2">
                     ${projects.map((project, index) => renderProjectCard(project, index)).join('')}
                 </div>
                 
                 <div class="portfolio-cta animate-on-scroll" style="margin-top: 60px; text-align: center;">
-                    <p>Check out my code on GitHub:</p>
                     <a href="https://github.com/sajidmahamud835" target="_blank" rel="noopener noreferrer" 
                        class="anchor-button button-bg-secondary hover-lift">
-                        <span style="font-size: 1.2em; vertical-align: middle; margin-right: 5px;">🐙</span> GitHub Profile
+                        <span style="font-size: 1.2em; vertical-align: middle; margin-right: 5px;">🐙</span> View More Projects on GitHub
                     </a>
                 </div>
             </div>
@@ -79,25 +78,26 @@ function renderProjectCard(project, index) {
         <article class="project-card hover-lift animate-on-scroll" 
                  data-category="${project.category}"
                  onclick="openProjectModal('${project.id}')">
-            <div class="project-card-header">
-                <div class="project-icon">
-                    <img src="${project.image}" alt="${project.title}" loading="lazy">
-                </div>
-                <div class="project-title-row">
-                    <h3>${project.title}</h3>
-                </div>
+            <!-- Banner Image Section (Like Services) -->
+            <div class="project-banner" style="background: var(--bg-hover); padding: 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: center; align-items: center; height: 160px;">
+                <img src="${project.image}" alt="${project.title}" style="height: 100%; width: auto; max-width: 100%; object-fit: contain;">
             </div>
             
-            <div class="project-card-body">
-                <p>${project.description.substring(0, 100)}...</p>
-                <div class="project-tech-pills">
-                    ${techPills}
-                    ${project.tech.length > 3 ? `<span class="tech-pill">+${project.tech.length - 3}</span>` : ''}
+            <div class="project-card-body" style="flex-grow: 1; display: flex; flex-direction: column;">
+                <div class="project-title-row" style="margin-bottom: 10px;">
+                    <h3 style="margin: 0; font-size: 1.2rem;">${project.title}</h3>
                 </div>
-            </div>
+                
+                <p class="project-description" style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 15px; flex-grow: 1;">
+                    ${project.description.substring(0, 100)}...
+                </p>
 
-            <div class="project-card-footer">
-                <span class="view-details">View Details →</span>
+                <div class="project-card-footer" style="margin-top: auto; display: flex; justify-content: space-between; align-items: center;">
+                    <div class="project-tech-pills">
+                        ${techPills}
+                    </div>
+                    <span class="view-details" style="color: var(--accent); font-weight: 500; font-size: 0.9rem;">View →</span>
+                </div>
             </div>
         </article>
     `;
