@@ -1,83 +1,105 @@
 /**
  * Portfolio View
- * Fetches projects from central README.md and displays as cards with modal
+ * Displays projects from portfolio-data.js with filtering and details modal
  */
 
-import { parseProjects, parseProjectDetails } from '../utils/markdown.js';
+import { projects, projectCategories } from '../data/portfolio-data.js';
 
-// Central README URL (raw GitHub content)
-const README_URL = 'https://raw.githubusercontent.com/sajidmahamud835/antigravity-projects/main/README.md';
-
-// Store projects data globally for modal access
-let projectsData = [];
-let projectDetails = {};
-
-// Fallback projects in case fetch fails
-const FALLBACK_PROJECTS = [
-    { name: 'EasyCom', url: 'https://github.com/sajidmahamud835/easycom', description: 'Next.js 15 E-commerce Platform', language: 'TypeScript' },
-    { name: 'WhatsApp Bot', url: 'https://github.com/sajidmahamud835/whatsapp-bot', description: 'Automation bot with API', language: 'JavaScript' },
-    { name: 'GridMaster Pro', url: 'https://github.com/sajidmahamud835/grid-master-pro-mt5-ea', description: 'MetaTrader 5 trading EA', language: 'MQL5' },
-    { name: 'BankSync', url: 'https://github.com/sajidmahamud835/banksync', description: 'Banking app with Plaid', language: 'TypeScript' }
-];
-
-export async function render() {
-    let projects = FALLBACK_PROJECTS;
-    let loadedFromReadme = false;
-
-    try {
-        const response = await fetch(README_URL);
-        if (response.ok) {
-            const markdown = await response.text();
-            const parsed = parseProjects(markdown);
-            if (parsed.length > 0) {
-                projects = parsed;
-                loadedFromReadme = true;
-            }
-            // Parse detailed info from central README
-            projectDetails = parseProjectDetails(markdown);
-        }
-    } catch (error) {
-        console.warn('Could not fetch README, using fallback projects:', error);
-    }
-
-    // Store for modal access
-    projectsData = projects;
-
+export function render() {
     return `
-        <section id="portfolio">
+        <section id="portfolio" class="portfolio-page">
             <div class="container">
-                <h1 class="section-title slide-up">Portfolio</h1>
-                <p class="section-subtitle">
-                    ${loadedFromReadme ? 'Live projects from my GitHub portfolio' : 'Selected projects'}
-                </p>
-                
-                <div class="portfolio-grid grid">
-                    ${projects.map((project, index) => `
-                        <article class="project-card hover-lift animate-on-scroll stagger-${(index % 5) + 1}" 
-                                 data-project-index="${index}"
-                                 onclick="openProjectModal(${index})"
-                                 style="cursor: pointer;">
-                            <div class="project-header">
-                                <h3 class="project-title">${project.name}</h3>
-                                ${project.language ? `<span class="project-language">${project.language}</span>` : ''}
-                            </div>
-                            <p class="project-description">${project.description}</p>
-                            <div class="project-links">
-                                <span class="anchor-button button-bg-secondary">View Details →</span>
-                            </div>
-                        </article>
+                <h1 class="section-title slide-up">My Portfolio</h1>
+                <p class="section-subtitle">A collection of my best work across Web, Mobile, AI, and Trading.</p>
+
+                <!-- Category Filters -->
+                <div class="category-filters animate-on-scroll">
+                    <button class="category-btn active" data-category="all">All</button>
+                    ${projectCategories.filter(c => c.id !== 'all').map(cat => `
+                        <button class="category-btn" data-category="${cat.id}">${cat.name}</button>
                     `).join('')}
                 </div>
                 
-                <div class="portfolio-cta animate-on-scroll">
-                    <p>Want to see more? Check out my full GitHub profile:</p>
+                <!-- Project Grid -->
+                <div class="portfolio-grid grid-3">
+                    ${projects.map((project, index) => renderProjectCard(project, index)).join('')}
+                </div>
+                
+                <div class="portfolio-cta animate-on-scroll" style="margin-top: 60px; text-align: center;">
+                    <p>Check out my code on GitHub:</p>
                     <a href="https://github.com/sajidmahamud835" target="_blank" rel="noopener noreferrer" 
                        class="anchor-button button-bg-secondary hover-lift">
-                        View All Projects
+                        <span style="font-size: 1.2em; vertical-align: middle; margin-right: 5px;">🐙</span> GitHub Profile
                     </a>
                 </div>
             </div>
         </section>
+
+        <!-- Project Detail Modal -->
+        <div id="project-modal" class="modal-backdrop">
+            <div class="modal-content">
+                <button class="modal-close" onclick="closeProjectModal()">×</button>
+                <div class="modal-body">
+                    <div class="modal-header">
+                        <span id="modal-category" class="badge"></span>
+                        <h2 id="modal-title"></h2>
+                    </div>
+                    
+                    <div class="modal-tech-stack" id="modal-tech"></div>
+                    
+                    <p id="modal-description" class="modal-desc"></p>
+                    
+                    <div class="modal-features-section">
+                        <h4>Key Features</h4>
+                        <ul id="modal-features"></ul>
+                    </div>
+
+                    <div class="modal-actions">
+                        <a id="modal-github" href="#" target="_blank" class="anchor-button button-bg-primary">
+                            View on GitHub
+                        </a>
+                        <!-- Demo link optional -->
+                        <a id="modal-demo" href="#" target="_blank" class="anchor-button button-bg-secondary" style="display:none">
+                            Live Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function renderProjectCard(project, index) {
+    // Generate pill tags for first 3 tech items
+    const techPills = project.tech.slice(0, 3).map(t =>
+        `<span class="tech-pill">${t}</span>`
+    ).join('');
+
+    return `
+        <article class="project-card hover-lift animate-on-scroll" 
+                 data-category="${project.category}"
+                 onclick="openProjectModal('${project.id}')">
+            <div class="project-card-header">
+                <div class="project-icon">
+                    <img src="${project.image}" alt="${project.title}" loading="lazy">
+                </div>
+                <div class="project-title-row">
+                    <h3>${project.title}</h3>
+                </div>
+            </div>
+            
+            <div class="project-card-body">
+                <p>${project.description.substring(0, 100)}...</p>
+                <div class="project-tech-pills">
+                    ${techPills}
+                    ${project.tech.length > 3 ? `<span class="tech-pill">+${project.tech.length - 3}</span>` : ''}
+                </div>
+            </div>
+
+            <div class="project-card-footer">
+                <span class="view-details">View Details →</span>
+            </div>
+        </article>
     `;
 }
 
@@ -86,62 +108,89 @@ export function init() {
         module.observeElements();
     });
 
-    // Make modal functions globally accessible
+    // Expose modal functions
     window.openProjectModal = openProjectModal;
     window.closeProjectModal = closeProjectModal;
+
+    // Filter Logic
+    const filterBtns = document.querySelectorAll('.category-btn');
+    const cards = document.querySelectorAll('.project-card');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Active state
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const category = btn.dataset.category;
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'flex';
+                    setTimeout(() => card.style.opacity = '1', 50);
+                } else {
+                    card.style.opacity = '0';
+                    setTimeout(() => card.style.display = 'none', 300);
+                }
+            });
+        });
+    });
 }
 
-function openProjectModal(index) {
-    const project = projectsData[index];
+function openProjectModal(projectId) {
+    const project = projects.find(p => p.id === projectId);
     if (!project) return;
 
     const modal = document.getElementById('project-modal');
-    const details = projectDetails[project.name] || {};
 
-    // Populate modal
-    document.getElementById('modal-title').textContent = project.name;
-    document.getElementById('modal-language').textContent = project.language || 'Various';
-    document.getElementById('modal-description').textContent = details.description || project.description;
+    // Populate Data
+    document.getElementById('modal-title').textContent = project.title;
+    document.getElementById('modal-category').textContent = project.category.toUpperCase();
+    document.getElementById('modal-description').textContent = project.description;
 
-    // Features list
-    const featuresEl = document.getElementById('modal-features');
-    if (details.features && details.features.length > 0) {
-        featuresEl.innerHTML = details.features.map(f => `<li>${f}</li>`).join('');
-        featuresEl.style.display = 'block';
+    // Tech Stack
+    const techContainer = document.getElementById('modal-tech');
+    techContainer.innerHTML = project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('');
+
+    // Features
+    const featuresList = document.getElementById('modal-features');
+    if (project.features && project.features.length) {
+        featuresList.innerHTML = project.features.map(f => `<li>${f}</li>`).join('');
+        featuresList.parentElement.style.display = 'block';
     } else {
-        featuresEl.innerHTML = '';
-        featuresEl.style.display = 'none';
+        featuresList.parentElement.style.display = 'none';
     }
 
-    // Tech stack
-    const techEl = document.getElementById('modal-tech');
-    if (details.tech) {
-        techEl.innerHTML = `<strong>Tech Stack:</strong> ${details.tech}`;
-        techEl.style.display = 'block';
+    // Links
+    const githubBtn = document.getElementById('modal-github');
+    githubBtn.href = project.github;
+
+    const demoBtn = document.getElementById('modal-demo');
+    if (project.demo) {
+        demoBtn.href = project.demo;
+        demoBtn.style.display = 'inline-block';
     } else {
-        techEl.style.display = 'none';
+        demoBtn.style.display = 'none';
     }
 
-    // GitHub link
-    document.getElementById('modal-github').href = details.github || project.url;
-
-    // Show modal
+    // Show
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 
-    // Close on backdrop click
+    // Close handlers
     modal.onclick = (e) => {
         if (e.target === modal) closeProjectModal();
     };
 
-    // Close on Escape key
     document.addEventListener('keydown', handleEscapeKey);
 }
 
 function closeProjectModal() {
     const modal = document.getElementById('project-modal');
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
     document.removeEventListener('keydown', handleEscapeKey);
 }
 
