@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#EC4899"/>
+      <stop offset="100%" style="stop-color:#F43F5E"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="400" fill="url(#grad)" />
+  
+  <!-- Design Tools -->
+  <circle cx="250" cy="200" r="80" fill="none" stroke="white" stroke-width="4" opacity="0.5"/>
+  <rect x="350" y="100" width="200" height="140" rx="4" fill="white" opacity="0.9"/>
+  <rect x="350" y="260" width="200" height="40" rx="4" fill="white" opacity="0.5"/>
+  
+  <!-- Pen Tool Icon hint -->
+  <path d="M500 300 L550 350 L530 360 L480 310" fill="white" />
+  
+  <text x="400" y="180" font-family="Arial, sans-serif" font-size="40" fill="#EC4899" font-weight="bold" text-anchor="middle">UI / UX</text>
+  <text x="400" y="350" font-family="Arial, sans-serif" font-size="30" fill="white" font-weight="bold" text-anchor="middle">Modern Design</text>
+</svg>

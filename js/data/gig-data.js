@@ -119,7 +119,7 @@ export const gigs = [
         category: 'mobile',
         title: 'I will develop a cross-platform mobile app using Flutter',
         shortTitle: 'Flutter App',
-        banner: 'images/gig-website.svg', // using fallback
+        banner: 'images/gig-mobile.svg',
         description: `Get a **native-quality iOS and Android app** from a single codebase. Smooth animations, offline support, and API integration.`,
         keywords: ['flutter', 'mobile app', 'ios', 'android', 'cross platform'],
         basePrice: 599,
@@ -141,7 +141,7 @@ export const gigs = [
         category: 'mobile',
         title: 'I will build a React Native app for your startup',
         shortTitle: 'React Native App',
-        banner: 'images/gig-website.svg', // using fallback
+        banner: 'images/gig-mobile.svg',
         description: `Launch your startup with a robust **React Native application**. High performance, reusable components, and easy maintenance.`,
         keywords: ['react native', 'mobile development', 'ios app', 'android app'],
         basePrice: 650,
@@ -164,7 +164,7 @@ export const gigs = [
         category: 'design',
         title: 'I will design a modern UI/UX for your mobile app',
         shortTitle: 'Mobile UI/UX',
-        banner: 'images/gig-website.svg', // using fallback
+        banner: 'images/gig-design.svg',
         description: `Stunning **mobile app designs** in Figma. User-centric research, wireframing, and high-fidelity prototyping.`,
         keywords: ['ui design', 'ux design', 'figma', 'mobile ui', 'app design'],
         basePrice: 199,
@@ -185,7 +185,7 @@ export const gigs = [
         category: 'design',
         title: 'I will create a clean and modern website design',
         shortTitle: 'Website UI Design',
-        banner: 'images/gig-website.svg', // using fallback
+        banner: 'images/gig-design.svg',
         description: `Professional **website UI design** that aligns with your brand. Delivered as pixel-perfect Figma files ready for development.`,
         keywords: ['web design', 'figma', 'landing page design', 'ui ux'],
         basePrice: 249,
@@ -250,7 +250,7 @@ export const gigs = [
         category: 'ai',
         title: 'I will automate your business workflows with Zapier/Make',
         shortTitle: 'Workflow Automation',
-        banner: 'images/gig-ai.svg',
+        banner: 'images/gig-automation.svg',
         description: `Save hours every week by **automating repetitive tasks**. Connect Google Sheets, email, Slack, and CRM seamlessly.`,
         keywords: ['automation', 'zapier', 'make.com', 'productivity', 'workflow'],
         basePrice: 150,
@@ -315,7 +315,7 @@ export const gigs = [
         category: 'blockchain',
         title: 'I will write secure smart contracts in Solidity',
         shortTitle: 'Smart Contract',
-        banner: 'images/gig-api.svg',
+        banner: 'images/gig-blockchain.svg',
         description: `Deploy **secure, gas-optimized smart contracts** for Ethereum, BSC, or Polygon. ERC-20, ERC-721 (NFTs), or custom logic.`,
         keywords: ['solidity', 'smart contract', 'ethereum', 'blockchain', 'web3'],
         basePrice: 400,
@@ -336,7 +336,7 @@ export const gigs = [
         category: 'blockchain',
         title: 'I will build a Web3 DApp with wallet connection',
         shortTitle: 'Full Stack DApp',
-        banner: 'images/gig-api.svg',
+        banner: 'images/gig-blockchain.svg',
         description: `Create a **Decentralized Application** connected to MetaMask/WalletConnect. Frontend visualization of on-chain data.`,
         keywords: ['dapp', 'web3', 'react', 'wagmi', 'metamask'],
         basePrice: 599,
@@ -357,7 +357,7 @@ export const gigs = [
         category: 'data',
         title: 'I will scrape data from any website to Excel/CSV',
         shortTitle: 'Web Scraping',
-        banner: 'images/gig-api.svg',
+        banner: 'images/gig-data.svg',
         description: `Extract **valuable data** from websites using Python/Selenium. Lead generation lists, product prices, or real estate data.`,
         keywords: ['web scraping', 'python', 'selenium', 'data entry', 'mining'],
         basePrice: 99,
@@ -378,7 +378,7 @@ export const gigs = [
         category: 'data',
         title: 'I will create interactive dashboards using D3/Chart.js',
         shortTitle: 'Data Visualization',
-        banner: 'images/gig-api.svg',
+        banner: 'images/gig-data.svg',
         description: `Turn raw numbers into **beautiful, interactive charts**. Custom dashboards for admin panels or public reports.`,
         keywords: ['d3.js', 'chart.js', 'dashboard', 'analytics', 'visualization'],
         basePrice: 199,
@@ -399,7 +399,7 @@ export const gigs = [
         category: 'marketing',
         title: 'I will provide a complete technical SEO audit',
         shortTitle: 'SEO Audit',
-        banner: 'images/gig-speed.svg',
+        banner: 'images/gig-marketing.svg',
         description: `Find out why you aren't ranking. **Comprehensive SEO report** covering site speed, broken links, meta tags, and keyword opportunities.`,
         keywords: ['seo', 'audit', 'marketing', 'google ranking'],
         basePrice: 80,
@@ -415,13 +415,6 @@ export const gigs = [
     },
 
     // ===== SUPPORT & FIXES =====
-    {
-        id: 'api-backend', // Updated ID to match old if needed, or keeping duplicate if unique service. Naming conflicts? 
-        // Wait, I already had 'api-backend' in old data. Let's keep it but I positioned it earlier in 'web'.
-        // I will rename the old "api-backend" above if duplicate or just remove duplication.
-        // I see 'api-backend' was defined earlier in this file now. I should verify uniqueness.
-        // Skipping duplicate to avoid error.
-    },
     {
         id: 'bug-fix',
         category: 'maintenance',
