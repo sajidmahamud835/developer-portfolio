@@ -21,7 +21,6 @@
 #wormhole-overlay.active {
     pointer-events: all;
     background: rgba(0, 0, 0, 0.95);
-    /* Deeper black */
     cursor: wait;
 }
 
@@ -41,16 +40,13 @@
     content: '';
     position: absolute;
     width: 150%;
-    /* Larger to ensure coverage */
     height: 150%;
-    /* Use local asset */
     background-image: url('../assets/disk.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     animation: spinDisk 2s linear infinite;
     mix-blend-mode: screen;
-    /* Blend with background */
 }
 
 /* 2. Event Horizon (The Void) */
@@ -58,7 +54,6 @@
     content: '';
     position: absolute;
     width: 35%;
-    /* Tuned for the generated asset */
     height: 35%;
     background: #000;
     border-radius: 50%;

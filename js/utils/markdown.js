@@ -96,3 +96,56 @@ export async function fetchReadme(url) {
     }
     return response.text();
 }
+
+/**
+ * Parses detailed project information from README sections
+ * Extracts features list and tech stack
+ * 
+ * @param {string} markdown - Raw markdown content
+ * @returns {Object} - Map of project name to details
+ */
+export function parseProjectDetails(markdown) {
+    const details = {};
+
+    // Match sections like: ### 1. EasyCom ... **Features:** - item1 - item2 ... **Tech:** ...
+    const sectionRegex = /###\s*\d+\.\s*([^\n]+)\n([\s\S]*?)(?=###\s*\d+\.|## |---|\n\n\n|$)/g;
+
+    let match;
+    while ((match = sectionRegex.exec(markdown)) !== null) {
+        const name = match[1].trim();
+        const content = match[2];
+
+        // Extract features
+        const features = [];
+        const featureRegex = /-\s*\*\*([^*]+)\*\*:\s*([^\n]+)/g;
+        let featureMatch;
+        while ((featureMatch = featureRegex.exec(content)) !== null) {
+            features.push(`${featureMatch[1]}: ${featureMatch[2].trim()}`);
+        }
+
+        // Extract tech stack
+        let tech = '';
+        const techMatch = content.match(/\*\*Tech:\*\*\s*([^\n|]+)/);
+        if (techMatch) {
+            tech = techMatch[1].trim();
+        }
+
+        // Extract GitHub URL
+        let github = '';
+        const githubMatch = content.match(/GitHub:\s*\[[^\]]+\]\(([^)]+)\)/);
+        if (githubMatch) {
+            github = githubMatch[1].trim();
+        }
+
+        // Extract description (text after emoji title)
+        let description = '';
+        const descMatch = content.match(/\*GitHub:[^\n]+\n\n([^\n]+)/);
+        if (descMatch) {
+            description = descMatch[1].trim();
+        }
+
+        details[name] = { features, tech, github, description };
+    }
+
+    return details;
+}

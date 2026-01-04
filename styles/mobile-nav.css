@@ -1,0 +1,79 @@
+/* ============================================
+   MOBILE APP-STYLE BOTTOM NAVIGATION
+   ============================================ */
+
+@media (max-width: 768px) {
+
+    /* Hide Desktop Navigation */
+    .navbar {
+        display: none;
+    }
+
+    /* Bottom Tab Bar */
+    .mobile-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 0.5rem 0;
+        padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+        /* iOS safe area */
+        z-index: 1000;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .mobile-nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #666;
+        font-size: 0.65rem;
+        padding: 0.3rem 0.8rem;
+        transition: color 0.2s ease, transform 0.2s ease;
+        gap: 0.2rem;
+    }
+
+    .mobile-nav-link:active {
+        transform: scale(0.9);
+    }
+
+    .mobile-nav-link.active,
+    .mobile-nav-link:hover {
+        color: tomato;
+    }
+
+    .nav-icon {
+        font-size: 1.3rem;
+    }
+
+    .nav-label {
+        font-weight: 500;
+    }
+
+    /* Adjust main content for bottom bar */
+    #app {
+        margin-top: 0 !important;
+        padding-bottom: 80px;
+        /* Space for bottom nav */
+    }
+
+    /* Hide footer on mobile for app feel */
+    footer {
+        display: none;
+    }
+}
+
+/* Desktop: Hide Mobile Nav */
+@media (min-width: 769px) {
+    .mobile-nav {
+        display: none;
+    }
+}

@@ -1,12 +1,16 @@
 /**
  * Portfolio View
- * Fetches projects from central README.md and displays as cards
+ * Fetches projects from central README.md and displays as cards with modal
  */
 
-import { parseProjects } from '../utils/markdown.js';
+import { parseProjects, parseProjectDetails } from '../utils/markdown.js';
 
 // Central README URL (raw GitHub content)
 const README_URL = 'https://raw.githubusercontent.com/sajidmahamud835/antigravity-projects/main/README.md';
+
+// Store projects data globally for modal access
+let projectsData = [];
+let projectDetails = {};
 
 // Fallback projects in case fetch fails
 const FALLBACK_PROJECTS = [
@@ -29,10 +33,15 @@ export async function render() {
                 projects = parsed;
                 loadedFromReadme = true;
             }
+            // Parse detailed info from central README
+            projectDetails = parseProjectDetails(markdown);
         }
     } catch (error) {
         console.warn('Could not fetch README, using fallback projects:', error);
     }
+
+    // Store for modal access
+    projectsData = projects;
 
     return `
         <section id="portfolio">
@@ -44,16 +53,17 @@ export async function render() {
                 
                 <div class="portfolio-grid grid">
                     ${projects.map((project, index) => `
-                        <article class="project-card hover-lift animate-on-scroll stagger-${(index % 5) + 1}">
+                        <article class="project-card hover-lift animate-on-scroll stagger-${(index % 5) + 1}" 
+                                 data-project-index="${index}"
+                                 onclick="openProjectModal(${index})"
+                                 style="cursor: pointer;">
                             <div class="project-header">
                                 <h3 class="project-title">${project.name}</h3>
                                 ${project.language ? `<span class="project-language">${project.language}</span>` : ''}
                             </div>
                             <p class="project-description">${project.description}</p>
                             <div class="project-links">
-                                <a href="${project.url}" target="_blank" rel="noopener noreferrer" class="anchor-button button-bg-primary">
-                                    View on GitHub
-                                </a>
+                                <span class="anchor-button button-bg-secondary">View Details →</span>
                             </div>
                         </article>
                     `).join('')}
@@ -75,4 +85,66 @@ export function init() {
     import('../utils/animations.js').then(module => {
         module.observeElements();
     });
+
+    // Make modal functions globally accessible
+    window.openProjectModal = openProjectModal;
+    window.closeProjectModal = closeProjectModal;
+}
+
+function openProjectModal(index) {
+    const project = projectsData[index];
+    if (!project) return;
+
+    const modal = document.getElementById('project-modal');
+    const details = projectDetails[project.name] || {};
+
+    // Populate modal
+    document.getElementById('modal-title').textContent = project.name;
+    document.getElementById('modal-language').textContent = project.language || 'Various';
+    document.getElementById('modal-description').textContent = details.description || project.description;
+
+    // Features list
+    const featuresEl = document.getElementById('modal-features');
+    if (details.features && details.features.length > 0) {
+        featuresEl.innerHTML = details.features.map(f => `<li>${f}</li>`).join('');
+        featuresEl.style.display = 'block';
+    } else {
+        featuresEl.innerHTML = '';
+        featuresEl.style.display = 'none';
+    }
+
+    // Tech stack
+    const techEl = document.getElementById('modal-tech');
+    if (details.tech) {
+        techEl.innerHTML = `<strong>Tech Stack:</strong> ${details.tech}`;
+        techEl.style.display = 'block';
+    } else {
+        techEl.style.display = 'none';
+    }
+
+    // GitHub link
+    document.getElementById('modal-github').href = details.github || project.url;
+
+    // Show modal
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    // Close on backdrop click
+    modal.onclick = (e) => {
+        if (e.target === modal) closeProjectModal();
+    };
+
+    // Close on Escape key
+    document.addEventListener('keydown', handleEscapeKey);
+}
+
+function closeProjectModal() {
+    const modal = document.getElementById('project-modal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', handleEscapeKey);
+}
+
+function handleEscapeKey(e) {
+    if (e.key === 'Escape') closeProjectModal();
 }

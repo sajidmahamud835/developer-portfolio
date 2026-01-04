@@ -11,7 +11,7 @@ export class ScrollNavigator {
             '/contact'
         ];
         this.isNavigating = false;
-        this.cooldown = 2000; // Longer cooldown for dramatic effect
+        this.cooldown = 2000;
         this.lastScrollTime = 0;
 
         // Cache Wormhole Elements
