@@ -36,11 +36,16 @@ export function render(gigId) {
 
                 <!-- Header -->
                 <div class="gig-detail-header">
-                    <span class="gig-category">${category?.icon || '💼'} ${category?.name || 'Service'}</span>
-                    <h1 class="gig-detail-title">${currentGig.title}</h1>
-                    <div class="gig-detail-meta">
-                        <span>🚀 Delivery: ${currentGig.deliveryDays} days</span>
-                        <span>⭐ Top Rated Service</span>
+                    <div class="gig-detail-banner">
+                        <img src="${currentGig.banner}" alt="${currentGig.title}" loading="lazy">
+                    </div>
+                    <div class="gig-header-content">
+                        <span class="gig-category">${category?.icon || '💼'} ${category?.name || 'Service'}</span>
+                        <h1 class="gig-detail-title">${currentGig.title}</h1>
+                        <div class="gig-detail-meta">
+                            <span>🚀 Delivery: ${currentGig.deliveryDays} days</span>
+                            <span>⭐ Top Rated Service</span>
+                        </div>
                     </div>
                 </div>
 

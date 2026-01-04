@@ -168,22 +168,24 @@
 /* Gig Banner */
 .gig-banner {
     height: 160px;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    background: var(--bg-card);
+    /* Fallback */
     position: relative;
     overflow: hidden;
+    border-bottom: 1px solid var(--border-light);
 }
 
-.gig-banner-placeholder {
+.gig-banner-img {
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    object-fit: contain;
+    padding: 10px;
+    /* Add some padding so it doesn't touch edges */
+    transition: transform 0.5s ease;
 }
 
-.gig-category-icon {
-    font-size: 60px;
-    opacity: 0.5;
+.gig-card:hover .gig-banner-img {
+    transform: scale(1.05);
 }
 
 /* Gig Content */

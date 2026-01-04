@@ -45,9 +45,7 @@ function renderGigCard(gig) {
     return `
         <article class="gig-card animate-on-scroll" data-category="${gig.category}">
             <div class="gig-banner">
-                <div class="gig-banner-placeholder">
-                    <span class="gig-category-icon">${category?.icon || '💼'}</span>
-                </div>
+                <img src="${gig.banner}" alt="${gig.title}" class="gig-banner-img" loading="lazy">
             </div>
             <div class="gig-content">
                 <span class="gig-category">${category?.name || 'Service'}</span>

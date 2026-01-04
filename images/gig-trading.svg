@@ -5,7 +5,15 @@
       <stop offset="100%" style="stop-color:#d97706"/>
     </linearGradient>
   </defs>
-  <rect width="800" height="400" fill="url(#grad)"/>
-  <text x="400" y="240" font-family="Arial, sans-serif" font-size="120" text-anchor="middle">📈</text>
-  <text x="400" y="320" font-family="Arial, sans-serif" font-size="40" fill="white" font-weight="bold" text-anchor="middle">Trading & Analysis</text>
+  <rect width="800" height="400" fill="url(#grad)" rx="20"/>
+  <!-- Chart Line -->
+  <polyline points="200,300 300,200 400,250 500,150 600,100" fill="none" stroke="white" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+  <!-- Dots -->
+  <circle cx="200" cy="300" r="15" fill="white"/>
+  <circle cx="300" cy="200" r="15" fill="white"/>
+  <circle cx="400" cy="250" r="15" fill="white"/>
+  <circle cx="500" cy="150" r="15" fill="white"/>
+  <circle cx="600" cy="100" r="15" fill="white"/>
+  
+  <text x="400" y="350" font-family="Arial, sans-serif" font-size="40" fill="white" font-weight="bold" text-anchor="middle">Trading Bot</text>
 </svg>
