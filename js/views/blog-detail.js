@@ -5,7 +5,7 @@
 import { blogPosts } from '../data/blog-data.js';
 import { parseMarkdown } from '../utils/markdown.js';
 
-export function render(postId) {
+export async function render(postId) {
     // Extract ID from URL if not passed (router handling varies)
     if (!postId) {
         const params = new URLSearchParams(window.location.search);
@@ -23,7 +23,20 @@ export function render(postId) {
         `;
     }
 
-    const htmlContent = parseMarkdown(post.content);
+    let htmlContent = '';
+    try {
+        const response = await fetch(post.contentPath);
+        if (response.ok) {
+            const markdown = await response.text();
+            htmlContent = parseMarkdown(markdown);
+        } else {
+            console.error('Failed to load markdown content');
+            htmlContent = '<p>Error loading article content.</p>';
+        }
+    } catch (error) {
+        console.error('Error fetching markdown:', error);
+        htmlContent = '<p>Error loading article content.</p>';
+    }
 
     return `
         <article class="blog-post-page">
@@ -31,7 +44,7 @@ export function render(postId) {
             <div class="blog-hero" style="background: linear-gradient(to bottom, var(--bg-secondary), var(--bg-primary)); padding: 60px 0 40px;">
                 <div class="container text-center">
                     <span class="badge" style="background:var(--accent-primary); color:white; padding:4px 12px; border-radius:20px;">${post.tags[0]}</span>
-                    <h1 style="margin: 20px 0; font-size: 2.5rem;">${post.title}</h1>
+                    <h1 style="margin: 20px 0; font-size: 2.5rem; line-height: 1.2;">${post.title}</h1>
                     <div class="meta" style="opacity:0.8;">
                         <span>📅 ${post.date}</span> • <span>⏱️ ${post.readTime} read</span>
                     </div>
