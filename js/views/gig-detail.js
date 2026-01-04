@@ -291,4 +291,3 @@ function renderSimilarGigs(currentGig) {
         `;
     }).join('');
 }
-```
