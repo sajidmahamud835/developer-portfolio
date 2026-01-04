@@ -152,12 +152,18 @@ window.route = function (event) {
 
     // Parse the href to extract route info
     if (href.startsWith('?') || href === '' || href === '?') {
-        // Query-string based navigation
         const params = new URLSearchParams(href.replace('?', ''));
         const routeName = params.get('route') || 'home';
-        const gigId = params.get('gig');
 
-        navigateTo(routeName, gigId ? { gig: gigId } : {});
+        // Extract all other parameters
+        const routeParams = {};
+        for (const [key, value] of params.entries()) {
+            if (key !== 'route') {
+                routeParams[key] = value;
+            }
+        }
+
+        navigateTo(routeName, routeParams);
     }
 };
 

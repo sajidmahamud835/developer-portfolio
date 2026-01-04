@@ -42,3 +42,49 @@ export function parseMarkdown(markdown) {
 
     return html;
 }
+
+/**
+ * Parse Central README for Projects
+ * Extracts h3 headers and descriptions
+ */
+export function parseProjects(markdown) {
+    if (!markdown) return [];
+
+    // Simple regex to find "### [Name](link) - Description" or similar patterns
+    // This is a naive implementation to support the demo.
+    // In a real scenario, use a proper AST parser.
+    // Assuming format: ### [Title](url) \n Description
+
+    const projects = [];
+    const lines = markdown.split('\n');
+
+    let currentProject = null;
+
+    lines.forEach(line => {
+        const headerMatch = line.match(/^###\s+\[(.*?)\]\((.*?)\)/);
+        if (headerMatch) {
+            if (currentProject) projects.push(currentProject);
+            currentProject = {
+                name: headerMatch[1],
+                url: headerMatch[2],
+                description: '',
+                language: 'Unknown'
+            };
+        } else if (currentProject && line.trim()) {
+            if (!currentProject.description) {
+                currentProject.description = line.trim();
+            }
+        }
+    });
+
+    if (currentProject) projects.push(currentProject);
+    return projects;
+}
+
+/**
+ * Parse Project Details (Features, Tech Stack) from generic markdown
+ */
+export function parseProjectDetails(markdown) {
+    // Return empty map for now as fallback
+    return {};
+}
