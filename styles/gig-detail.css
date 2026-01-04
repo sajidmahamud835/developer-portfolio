@@ -24,3 +24,15 @@
         height: 200px;
     }
 }
+
+/* Similar Gigs */
+.similar-gigs-section {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border-light);
+}
+
+.similar-gigs-section .section-title {
+    margin-bottom: 40px;
+    text-align: left;
+}

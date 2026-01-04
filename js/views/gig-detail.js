@@ -3,7 +3,7 @@
  * Displays individual gig with feature selection and live pricing
  */
 
-import { getGigById, gigCategories } from '../data/gig-data.js';
+import { getGigById, gigCategories, getGigsByCategory } from '../data/gig-data.js';
 
 let currentGig = null;
 let selectedOptions = {};
@@ -120,6 +120,14 @@ export function render(gigId) {
                 </form>
             </div>
         </div>
+
+        <!-- Similar Gigs Section -->
+        <section class="similar-gigs-section container">
+            <h2 class="section-title">Similar Services</h2>
+            <div class="gig-grid">
+                ${renderSimilarGigs(currentGig)}
+            </div>
+        </section>
     `;
 }
 
@@ -251,3 +259,36 @@ export function init() {
         module.observeElements();
     });
 }
+
+function renderSimilarGigs(currentGig) {
+    const similar = getGigsByCategory(currentGig.category)
+        .filter(g => g.id !== currentGig.id)
+        .slice(0, 3); // Show max 3
+
+    if (similar.length === 0) return '<p class="text-center">No similar services found.</p>';
+
+    return similar.map(gig => {
+        // Mini card render
+        const category = gigCategories.find(c => c.id === gig.category);
+        return `
+        <article class="gig-card" data-category="${gig.category}">
+            <div class="gig-banner">
+                <img src="${gig.banner}" alt="${gig.title}" class="gig-banner-img" loading="lazy">
+            </div>
+            <div class="gig-content">
+                <span class="gig-category">${category?.name || 'Service'}</span>
+                <h3 class="gig-title">${gig.shortTitle}</h3>
+                <p class="gig-description">${gig.description.substring(0, 60)}...</p>
+                <div class="gig-footer">
+                    <div class="gig-price">
+                        <span class="price-label">From</span>
+                        <span class="price-value">$${gig.basePrice}</span>
+                    </div>
+                    <a href="?route=gig&gig=${gig.id}" onclick="route(event)" class="gig-cta">View</a>
+                </div>
+            </div>
+        </article>
+        `;
+    }).join('');
+}
+```
