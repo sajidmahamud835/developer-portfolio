@@ -39,15 +39,19 @@ export function render() {
         <div id="project-modal" class="modal-backdrop">
             <div class="modal-content">
                 <button class="modal-close" onclick="closeProjectModal()">×</button>
-                <div class="modal-body">
-                    <div class="modal-header">
+                
+                <div class="modal-header">
+                    <div class="modal-header-top">
                         <span id="modal-category" class="badge"></span>
-                        <div style="display: flex; gap: 15px; align-items: center; margin-top: 5px;">
-                            <h2 id="modal-title" style="margin:0;"></h2>
-                            <div id="modal-stats" style="font-size:0.9em; color:var(--text-secondary); display:flex; gap:10px;"></div>
-                        </div>
+                        <div id="modal-updated" style="font-size:0.8rem; color:var(--text-secondary); margin-left:auto;"></div>
                     </div>
                     
+                    <h2 id="modal-title" class="modal-title"></h2>
+                    
+                    <div id="modal-stats" class="modal-stats-row"></div>
+                </div>
+
+                <div class="modal-body">
                     <div class="modal-tech-stack" id="modal-tech"></div>
                     
                     <p id="modal-description" class="modal-desc"></p>
@@ -210,30 +214,54 @@ function openProjectModal(projectId) {
 
     const modal = document.getElementById('project-modal');
 
-    // Populate Data
+    // Basic Data
     document.getElementById('modal-title').textContent = project.title;
     document.getElementById('modal-category').textContent = project.category.toUpperCase();
+
+    // Initial Description (Fallback)
     document.getElementById('modal-description').textContent = project.description;
 
-    // Live Stats in Modal
-    const statsContainer = document.getElementById('modal-stats');
-    if (statsContainer) {
-        statsContainer.innerHTML = '<span style="opacity:0.6">Loading...</span>';
-        getRepoStats(project.github).then(stats => {
-            if (stats) {
-                statsContainer.innerHTML = `
-                        <span title="Stars" style="display:flex; align-items:center; color:#e3b341">⭐ ${stats.stars}</span>
-                        <span title="Forks" style="display:flex; align-items:center; margin-left:10px;">🍴 ${stats.forks}</span>
-                    `;
-            } else {
-                statsContainer.innerHTML = '';
-            }
-        });
-    }
-
-    // Tech Stack
+    // Tech Stack (Local)
     const techContainer = document.getElementById('modal-tech');
     techContainer.innerHTML = project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('');
+
+    // stats container
+    const statsContainer = document.getElementById('modal-stats');
+    statsContainer.innerHTML = '<div class="stat-item">Loading stats...</div>';
+
+    // Fetch Real-time Data
+    getRepoStats(project.github).then(stats => {
+        if (stats) {
+            // Update Stats
+            statsContainer.innerHTML = `
+                <div class="stat-item" title="Stars">
+                    <span style="color:#e3b341">⭐</span> 
+                    <strong>${stats.stars}</strong> Stars
+                </div>
+                <div class="stat-item" title="Forks">
+                    <span>🍴</span> 
+                    <strong>${stats.forks}</strong> Forks
+                </div>
+                <div class="stat-item" title="Language">
+                    <span>💻</span> 
+                    <strong>${stats.language || 'Code'}</strong>
+                </div>
+            `;
+
+            // If we have a longer description from GitHub, maybe append it or replace?
+            // User requested "real time data". Let's use the GH description if it's substantial.
+            if (stats.description && stats.description.length > project.description.length) {
+                document.getElementById('modal-description').textContent = stats.description;
+            }
+        } else {
+            // Fallback for no stats
+            statsContainer.innerHTML = `
+                <div class="stat-item">
+                     GitHub Info Unavailable
+                </div>
+            `;
+        }
+    });
 
     // Features
     const featuresList = document.getElementById('modal-features');
