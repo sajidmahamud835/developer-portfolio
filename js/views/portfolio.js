@@ -112,20 +112,7 @@ function renderProjectCard(project, index) {
     `;
 }
 
-// Helper to update card stats asynchronously
-async function updateCardStats(project) {
-    if (!project.github) return;
-    const stats = await getRepoStats(project.github);
-    if (stats) {
-        const statsEl = document.getElementById(`stats-${project.id}`);
-        if (statsEl) {
-            statsEl.innerHTML = `
-                <span title="Stars"><span style="margin-right:4px">⭐</span>${stats.stars}</span>
-                <span title="Forks"><span style="margin-right:4px">🍴</span>${stats.forks}</span>
-            `;
-        }
-    }
-} // Close updateCardStats
+
 
 export function init() {
     import('../utils/animations.js').then(module => {
@@ -160,8 +147,61 @@ export function init() {
         });
     });
 
-    // Initialize stats
-    projects.forEach(p => updateCardStats(p));
+    // Initialize stats & Sort
+    const statPromises = projects.map(async (p) => {
+        if (!p.github) return { id: p.id, score: 0 };
+        const stats = await getRepoStats(p.github);
+        // update UI for this card
+        if (stats) {
+            const statsEl = document.getElementById(`stats-${p.id}`);
+            if (statsEl) {
+                statsEl.innerHTML = `
+                <span title="Stars"><span style="margin-right:4px">⭐</span>${stats.stars}</span>
+                <span title="Forks"><span style="margin-right:4px">🍴</span>${stats.forks}</span>
+            `;
+            }
+            return { id: p.id, score: (stats.stars || 0) + (stats.forks || 0) };
+        }
+        return { id: p.id, score: 0 };
+    });
+
+    Promise.all(statPromises).then(scores => {
+        sortProjectsByStats(scores);
+    });
+}
+
+function sortProjectsByStats(scores) {
+    const grid = document.querySelector('.portfolio-grid');
+    if (!grid) return;
+
+    // Create a map for fast lookup
+    const scoreMap = {};
+    scores.forEach(s => scoreMap[s.id] = s.score);
+
+    // Get all cards
+    const cards = Array.from(grid.children);
+
+    // Sort cards based on score
+    cards.sort((a, b) => {
+        // Extract ID from onclick attribute or we can add data-id to card
+        // Current card HTML: onclick="openProjectModal('id')"
+        const getId = (el) => {
+            const onClick = el.getAttribute('onclick');
+            // parse 'openProjectModal('id')'
+            const match = onClick.match(/'([^']+)'/);
+            return match ? match[1] : '';
+        };
+
+        const idA = getId(a);
+        const idB = getId(b);
+        const scoreA = scoreMap[idA] || 0;
+        const scoreB = scoreMap[idB] || 0;
+
+        return scoreB - scoreA; // Descending
+    });
+
+    // Re-append in new order
+    cards.forEach(card => grid.appendChild(card));
 }
 
 function openProjectModal(projectId) {
