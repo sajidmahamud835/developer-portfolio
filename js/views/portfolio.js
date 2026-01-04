@@ -4,7 +4,8 @@
  */
 
 import { projects, projectCategories } from '../data/portfolio-data.js';
-import { getRepoStats } from '../utils/github-stats.js';
+import { projects, projectCategories } from '../data/portfolio-data.js';
+import { getRepoStats, getRepoCommits } from '../utils/github-stats.js';
 
 export function render() {
     return `
@@ -61,6 +62,11 @@ export function render() {
                         <ul id="modal-features"></ul>
                     </div>
 
+                    <div id="modal-commits" class="commits-section" style="display:none;">
+                        <h5>⚡ Recent Activity</h5>
+                        <div id="modal-commits-list"></div>
+                    </div>
+
                     <div class="modal-actions">
                         <a id="modal-github" href="#" target="_blank" class="anchor-button button-bg-primary">
                             View on GitHub
@@ -69,6 +75,10 @@ export function render() {
                         <a id="modal-demo" href="#" target="_blank" class="anchor-button button-bg-secondary" style="display:none">
                             Live Demo
                         </a>
+                        
+                        <button class="share-btn" onclick="shareProject()" title="Share Project">
+                            🔗
+                        </button>
                     </div>
                 </div>
             </div>
@@ -171,6 +181,13 @@ export function init() {
 
     Promise.all(statPromises).then(scores => {
         sortProjectsByStats(scores);
+
+        // Check for deep link params after sorting/rendering
+        const params = new URLSearchParams(window.location.search);
+        const projectId = params.get('project');
+        if (projectId) {
+            openProjectModal(projectId);
+        }
     });
 }
 
@@ -272,6 +289,26 @@ function openProjectModal(projectId) {
         featuresList.parentElement.style.display = 'none';
     }
 
+    // Commits
+    const commitsSection = document.getElementById('modal-commits');
+    const commitsList = document.getElementById('modal-commits-list');
+
+    // Reset
+    commitsSection.style.display = 'none';
+    commitsList.innerHTML = '';
+
+    getRepoCommits(project.github).then(commits => {
+        if (commits && commits.length > 0) {
+            commitsSection.style.display = 'block';
+            commitsList.innerHTML = commits.map(c => `
+                <div class="commit-item">
+                    <a href="${c.url}" target="_blank" class="commit-msg" title="${c.message}">${c.message}</a>
+                    <span class="commit-date">${new Date(c.date).toLocaleDateString()}</span>
+                </div>
+            `).join('');
+        }
+    });
+
     // Links
     const githubBtn = document.getElementById('modal-github');
     githubBtn.href = project.github;
@@ -283,6 +320,9 @@ function openProjectModal(projectId) {
     } else {
         demoBtn.style.display = 'none';
     }
+
+    // Store ID for share function
+    window.currentProjectId = project.id;
 
     // Show
     modal.classList.add('active');
@@ -301,6 +341,13 @@ function closeProjectModal() {
     if (modal) {
         modal.classList.remove('active');
         document.body.style.overflow = '';
+
+        // Remove 'project' query param on close if desired, 
+        // to keep URL clean, but some users prefer history state.
+        // We'll leave it for now or replace state
+        const url = new URL(window.location);
+        url.searchParams.delete('project');
+        window.history.replaceState({}, '', url);
     }
     document.removeEventListener('keydown', handleEscapeKey);
 }
@@ -308,3 +355,23 @@ function closeProjectModal() {
 function handleEscapeKey(e) {
     if (e.key === 'Escape') closeProjectModal();
 }
+
+// Global Share Function
+window.shareProject = function () {
+    if (!window.currentProjectId) return;
+
+    const url = new URL(window.location);
+    url.searchParams.set('route', 'portfolio');
+    url.searchParams.set('project', window.currentProjectId);
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(url.toString()).then(() => {
+        const btn = document.querySelector('.share-btn');
+        const original = btn.innerHTML;
+        btn.innerHTML = '✅';
+        setTimeout(() => btn.innerHTML = original, 2000);
+    }).catch(err => {
+        console.error('Failed to copy', err);
+        alert('Link: ' + url.toString());
+    });
+};
