@@ -1,7 +1,3 @@
-/**
- * Blog Data - SEO Optimized Articles
- */
-
 export const blogPosts = [
     {
         id: 'custom-website-2026',
@@ -9,7 +5,7 @@ export const blogPosts = [
         excerpt: 'In an era of generic templates, a custom-coded website is your competitive advantage. Learn why performance, SEO, and brand identity matter more than ever.',
         date: 'Jan 15, 2025',
         category: 'web',
-        image: 'images/gig-website.svg',
+        image: 'images/blog-web.svg',
         readTime: '5 min',
         tags: ['Web Development', 'Business', 'SEO', 'React'],
         content: `
@@ -49,7 +45,7 @@ investing in a custom website is investing in your digital future. It provides t
         excerpt: 'Choosing the right cross-platform framework is critical for your MVP. We compare performance, developer experience, and market adoption.',
         date: 'Jan 12, 2025',
         category: 'mobile',
-        image: 'images/gig-mobile.svg',
+        image: 'images/blog-mobile.svg',
         readTime: '6 min',
         tags: ['Mobile App', 'Flutter', 'React Native', 'Startup'],
         content: `
@@ -85,7 +81,7 @@ Flutter uses the Dart language and draws its own widgets. This ensures pixel-per
         excerpt: 'Automate 80% of your support queries with a custom AI chatbot. A guide to RAG (Retrieval-Augmented Generation) and OpenAI integration.',
         date: 'Jan 10, 2025',
         category: 'ai',
-        image: 'images/gig-ai.svg',
+        image: 'images/blog-ai.svg',
         readTime: '4 min',
         tags: ['AI', 'ChatGPT', 'Automation', 'Customer Service'],
         content: `
@@ -119,7 +115,7 @@ You don't need to be a tech giant to use this. With the OpenAI API and a vector 
         excerpt: 'Understand how self-executing contracts on the blockchain are revolutionizing finance, real estate, and supply chains.',
         date: 'Jan 05, 2025',
         category: 'blockchain',
-        image: 'images/gig-blockchain.svg',
+        image: 'images/blog-chain.svg',
         readTime: '7 min',
         tags: ['Blockchain', 'Web3', 'Smart Contracts', 'Solidity'],
         content: `
@@ -148,7 +144,7 @@ Solidity is the primary language for writing smart contracts on Ethereum and EVM
         excerpt: 'Take emotions out of the equation. Automated trading systems (Expert Advisors) execute your strategy with split-second precision.',
         date: 'Jan 02, 2025',
         category: 'trading',
-        image: 'images/gig-trading.svg',
+        image: 'images/blog-trading.svg',
         readTime: '5 min',
         tags: ['Trading', 'Forex', 'Algo Trading', 'MQL4'],
         content: `
