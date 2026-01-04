@@ -25,5 +25,5 @@
     <circle cx="150" cy="50" r="15" fill="#2196F3" opacity="0.8"/>
   </g>
   
-  <text x="400" y="320" font-family="Arial, sans-serif" font-size="24" fill="#673AB7" font-weight="bold" text-anchor="middle">AI & Chatbots</text>
+  <text x="400" y="320" font-family="Arial, sans-serif" font-size="24" fill="#673AB7" font-weight="bold" text-anchor="middle">AI &amp; Chatbots</text>
 </svg>

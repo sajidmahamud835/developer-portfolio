@@ -4,9 +4,11 @@
  */
 
 import { getFeaturedGigs, gigCategories } from '../data/gig-data.js';
+import { blogPosts } from '../data/blog-data.js';
 
 export function render() {
     const featuredGigs = getFeaturedGigs();
+    const latestPosts = blogPosts.slice(0, 3); // Get first 3 posts
 
     return `
         <section id="home" class="hero">
@@ -52,7 +54,7 @@ export function render() {
                             <a href="?route=gig&gig=${gig.id}" onclick="route(event)" class="featured-gig-card">
                                 <div class="featured-gig-icon">${category?.icon || '💼'}</div>
                                 <h3>${gig.shortTitle}</h3>
-                                <p>${gig.description.replace(/\*\*/g, '').substring(0, 80)}...</p>
+                                <p>${gig.description.substring(0, 80)}...</p>
                                 <div class="featured-gig-price">
                                     <span>From</span>
                                     <strong>$${gig.basePrice}</strong>
@@ -85,6 +87,45 @@ export function render() {
                     </p>
                     <a href="?route=services" onclick="route(event)" class="anchor-button button-bg-primary hover-lift">
                         My Services
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Latest Updates (Blog) -->
+        <section id="latest-blog" class="animate-on-scroll" style="padding: 60px 0;">
+            <div class="container">
+                <h2 class="section-title">Latest Updates</h2>
+                <p class="section-subtitle">Insights on Tech, AI, and Development</p>
+
+                <div class="blog-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
+                    ${latestPosts.map(post => `
+                        <article class="blog-card" style="background: var(--bg-card); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-sm); transition: transform 0.3s ease;">
+                            <div class="blog-card-image" style="height: 200px; overflow: hidden;">
+                                <img src="${post.image}" alt="${post.title}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
+                            </div>
+                            <div class="blog-card-content" style="padding: 20px;">
+                                <div class="blog-meta" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
+                                    <span style="background: var(--bg-hover); padding: 2px 8px; border-radius: 4px;">${post.category}</span>
+                                    <span style="margin-left: 10px;">${post.date}</span>
+                                </div>
+                                <h3 style="margin-bottom: 10px; font-size: 1.2rem;">
+                                    <a href="?route=post&id=${post.id}" onclick="route(event)" style="text-decoration: none; color: inherit;">${post.title}</a>
+                                </h3>
+                                <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">
+                                    ${post.excerpt.substring(0, 100)}...
+                                </p>
+                                <a href="?route=post&id=${post.id}" onclick="route(event)" style="color: var(--accent-primary); font-weight: 500; text-decoration: none;">
+                                    Read Article →
+                                </a>
+                            </div>
+                        </article>
+                    `).join('')}
+                </div>
+
+                <div class="featured-cta" style="margin-top: 50px;">
+                    <a href="?route=blog" onclick="route(event)" class="anchor-button button-bg-secondary">
+                        View All Articles
                     </a>
                 </div>
             </div>
