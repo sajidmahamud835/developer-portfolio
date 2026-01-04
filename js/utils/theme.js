@@ -18,6 +18,10 @@ const ThemeManager = {
 
         if (savedTheme) {
             initialTheme = savedTheme;
+        } else if (systemPrefersDark) {
+            initialTheme = this.DARK;
+        } else {
+            initialTheme = this.LIGHT;
         }
 
         // Apply initial theme
