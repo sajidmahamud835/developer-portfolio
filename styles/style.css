@@ -206,14 +206,6 @@ section {
 }
 
 /* --------------------
-    top banner section 
------------------------*/
-#top-banner {
-    /* No banner in dark mode */
-    background: none;
-}
-
-/* --------------------
     dream big section
 ----------------------*/
 
@@ -327,8 +319,6 @@ footer p {
 
 /* Hero Section */
 .hero {
-    background-image: url(../images/top-banner.png);
-    background-repeat: no-repeat;
     padding: 4rem 0;
 }
 
