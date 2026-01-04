@@ -16,10 +16,10 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background: rgba(26, 26, 46, 0.95);
+        background: var(--bg-nav-mobile);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: 1px solid var(--border-light);
         padding: 0.5rem 0;
         padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
         /* iOS safe area */
@@ -35,7 +35,7 @@
         align-items: center;
         justify-content: center;
         text-decoration: none;
-        color: #aaa;
+        color: var(--text-muted);
         font-size: 0.65rem;
         padding: 0.3rem 0.8rem;
         transition: color 0.2s ease, transform 0.2s ease;
@@ -48,7 +48,7 @@
 
     .mobile-nav-link.active,
     .mobile-nav-link:hover {
-        color: tomato;
+        color: var(--accent);
     }
 
     .nav-icon {

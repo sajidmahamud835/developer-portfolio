@@ -24,9 +24,9 @@
 }
 
 .modal-content {
-    background: #1a1a2e;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #e0e0e0;
+    background: var(--bg-modal);
+    border: 1px solid var(--border-light);
+    color: var(--text-nav);
     border-radius: 16px;
     max-width: 600px;
     width: 90%;
@@ -46,7 +46,7 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--border-light);
     border: none;
     width: 36px;
     height: 36px;
@@ -58,7 +58,7 @@
     justify-content: center;
     transition: background 0.2s ease;
     z-index: 10;
-    color: #fff;
+    color: var(--text-primary);
 }
 
 .modal-close:hover {

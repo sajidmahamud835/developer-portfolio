@@ -4,6 +4,7 @@
  * Routes use format: ?route=about, ?route=services, etc.
  * No external dependencies - pure ES6+ JavaScript.
  */
+import ThemeManager from './utils/theme.js';
 
 // ============================================
 // ROUTE DEFINITIONS
@@ -105,7 +106,29 @@ function navigateTo(routeName, params = {}) {
     });
 
     const queryString = searchParams.toString();
-    const newUrl = queryString ? `?${queryString}` : window.location.pathname;
+    // Logic to enforce root path if we are on a "virtual" directory like /portfolio
+    // This assumes the app is hosted at the root or a specific base.
+    // We'll trust window.location.pathname unless it matches a known route key (and is not a real folder).
+    // A safe bet for GitHub Pages SPA pattern is preventing 'stacking' of paths.
+
+    // For now, simply replacing the search string without manipulating path is standard.
+    // But to fix the user's "some still has the /xyz directory", we can try:
+
+    // If the path ends with one of our route names, strip it.
+    let cleanPath = window.location.pathname;
+    const routeKeys = Object.keys(routes);
+
+    // Very naive check: if path ends with a route name, remove it.
+    // e.g. /developer-portfolio/portfolio -> /developer-portfolio/
+    routeKeys.forEach(key => {
+        if (cleanPath.endsWith(`/${key}`)) {
+            cleanPath = cleanPath.substring(0, cleanPath.length - key.length);
+        }
+    });
+
+    // Ensure trailing slash consistency? Not strictly necessary for query params.
+
+    const newUrl = `${cleanPath}${queryString ? '?' + queryString : ''}`;
 
     window.history.pushState({}, '', newUrl);
     router();
@@ -181,13 +204,19 @@ window.addEventListener('popstate', router);
 
 // Initial load
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Theme
+    ThemeManager.init();
+
+    // Theme Toggle Listener
+    const toggleBtn = document.getElementById('theme-toggle');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            ThemeManager.toggle();
+        });
+    }
+
     initMobileNav();
     router();
-
-    // Initialize Auto-Scroll Navigation
-    import('./utils/scroll-nav.js').then(module => {
-        new module.ScrollNavigator();
-    });
 
     // Initialize iOS Add to Home Screen Prompt
     import('./utils/ios-prompt.js').then(module => {

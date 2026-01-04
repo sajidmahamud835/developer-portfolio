@@ -38,23 +38,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles/variables.css">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/animations.css">
-    <!-- <link rel="stylesheet" href="styles/wormhole.css"> -->
     <link rel="stylesheet" href="styles/mobile-nav.css">
     <link rel="stylesheet" href="styles/modal.css">
     <link rel="stylesheet" href="styles/services.css">
 </head>
 
 <body>
-    <!-- Wormhole Overlay -->
-    <!-- Wormhole Overlay (Temporarily Disabled for Readability) -->
-    <!-- <div id="wormhole-overlay">
-        <div class="wormhole">
-            <div class="photon-ring"></div>
-        </div>
-    </div> -->
-
     <!-- Project Modal -->
     <div id="project-modal">
         <div class="modal-content">
@@ -87,6 +79,28 @@
             <li><a href="?route=services" onclick="route(event)" class="nav-link">Services</a></li>
             <li><a href="?route=portfolio" onclick="route(event)" class="nav-link">Portfolio</a></li>
             <li><a href="?route=contact" onclick="route(event)" class="nav-link">Contact</a></li>
+            <li>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+                    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </li>
         </ul>
         <button class="nav-toggle" aria-label="Toggle navigation">
             <span class="hamburger"></span>
