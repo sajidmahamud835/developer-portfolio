@@ -124,118 +124,119 @@ async function updateCardStats(project) {
                 <span title="Forks"><span style="margin-right:4px">🍴</span>${stats.forks}</span>
             `;
         }
-    } // Close updateCardStats
+    }
+} // Close updateCardStats
 
-    export function init() {
-        import('../utils/animations.js').then(module => {
-            module.observeElements();
-        });
+export function init() {
+    import('../utils/animations.js').then(module => {
+        module.observeElements();
+    });
 
-        // Expose modal functions
-        window.openProjectModal = openProjectModal;
-        window.closeProjectModal = closeProjectModal;
+    // Expose modal functions
+    window.openProjectModal = openProjectModal;
+    window.closeProjectModal = closeProjectModal;
 
-        // Filter Logic
-        const filterBtns = document.querySelectorAll('.category-btn');
-        const cards = document.querySelectorAll('.project-card');
+    // Filter Logic
+    const filterBtns = document.querySelectorAll('.category-btn');
+    const cards = document.querySelectorAll('.project-card');
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Active state
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Active state
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
 
-                const category = btn.dataset.category;
+            const category = btn.dataset.category;
 
-                cards.forEach(card => {
-                    if (category === 'all' || card.dataset.category === category) {
-                        card.style.display = 'flex';
-                        setTimeout(() => card.style.opacity = '1', 50);
-                    } else {
-                        card.style.opacity = '0';
-                        setTimeout(() => card.style.display = 'none', 300);
-                    }
-                });
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'flex';
+                    setTimeout(() => card.style.opacity = '1', 50);
+                } else {
+                    card.style.opacity = '0';
+                    setTimeout(() => card.style.display = 'none', 300);
+                }
             });
         });
+    });
 
-        // Initialize stats
-        projects.forEach(p => updateCardStats(p));
-    }
+    // Initialize stats
+    projects.forEach(p => updateCardStats(p));
+}
 
-    function openProjectModal(projectId) {
-        const project = projects.find(p => p.id === projectId);
-        if (!project) return;
+function openProjectModal(projectId) {
+    const project = projects.find(p => p.id === projectId);
+    if (!project) return;
 
-        const modal = document.getElementById('project-modal');
+    const modal = document.getElementById('project-modal');
 
-        // Populate Data
-        document.getElementById('modal-title').textContent = project.title;
-        document.getElementById('modal-category').textContent = project.category.toUpperCase();
-        document.getElementById('modal-description').textContent = project.description;
+    // Populate Data
+    document.getElementById('modal-title').textContent = project.title;
+    document.getElementById('modal-category').textContent = project.category.toUpperCase();
+    document.getElementById('modal-description').textContent = project.description;
 
-        // Live Stats in Modal
-        const statsContainer = document.getElementById('modal-stats');
-        if (statsContainer) {
-            statsContainer.innerHTML = '<span style="opacity:0.6">Loading...</span>';
-            getRepoStats(project.github).then(stats => {
-                if (stats) {
-                    statsContainer.innerHTML = `
+    // Live Stats in Modal
+    const statsContainer = document.getElementById('modal-stats');
+    if (statsContainer) {
+        statsContainer.innerHTML = '<span style="opacity:0.6">Loading...</span>';
+        getRepoStats(project.github).then(stats => {
+            if (stats) {
+                statsContainer.innerHTML = `
                         <span title="Stars" style="display:flex; align-items:center; color:#e3b341">⭐ ${stats.stars}</span>
                         <span title="Forks" style="display:flex; align-items:center; margin-left:10px;">🍴 ${stats.forks}</span>
                     `;
-                } else {
-                    statsContainer.innerHTML = '';
-                }
-            });
-        }
-
-        // Tech Stack
-        const techContainer = document.getElementById('modal-tech');
-        techContainer.innerHTML = project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('');
-
-        // Features
-        const featuresList = document.getElementById('modal-features');
-        if (project.features && project.features.length) {
-            featuresList.innerHTML = project.features.map(f => `<li>${f}</li>`).join('');
-            featuresList.parentElement.style.display = 'block';
-        } else {
-            featuresList.parentElement.style.display = 'none';
-        }
-
-        // Links
-        const githubBtn = document.getElementById('modal-github');
-        githubBtn.href = project.github;
-
-        const demoBtn = document.getElementById('modal-demo');
-        if (project.demo) {
-            demoBtn.href = project.demo;
-            demoBtn.style.display = 'inline-block';
-        } else {
-            demoBtn.style.display = 'none';
-        }
-
-        // Show
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-
-        // Close handlers
-        modal.onclick = (e) => {
-            if (e.target === modal) closeProjectModal();
-        };
-
-        document.addEventListener('keydown', handleEscapeKey);
+            } else {
+                statsContainer.innerHTML = '';
+            }
+        });
     }
 
-    function closeProjectModal() {
-        const modal = document.getElementById('project-modal');
-        if (modal) {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        document.removeEventListener('keydown', handleEscapeKey);
+    // Tech Stack
+    const techContainer = document.getElementById('modal-tech');
+    techContainer.innerHTML = project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('');
+
+    // Features
+    const featuresList = document.getElementById('modal-features');
+    if (project.features && project.features.length) {
+        featuresList.innerHTML = project.features.map(f => `<li>${f}</li>`).join('');
+        featuresList.parentElement.style.display = 'block';
+    } else {
+        featuresList.parentElement.style.display = 'none';
     }
 
-    function handleEscapeKey(e) {
-        if (e.key === 'Escape') closeProjectModal();
+    // Links
+    const githubBtn = document.getElementById('modal-github');
+    githubBtn.href = project.github;
+
+    const demoBtn = document.getElementById('modal-demo');
+    if (project.demo) {
+        demoBtn.href = project.demo;
+        demoBtn.style.display = 'inline-block';
+    } else {
+        demoBtn.style.display = 'none';
     }
+
+    // Show
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    // Close handlers
+    modal.onclick = (e) => {
+        if (e.target === modal) closeProjectModal();
+    };
+
+    document.addEventListener('keydown', handleEscapeKey);
+}
+
+function closeProjectModal() {
+    const modal = document.getElementById('project-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    document.removeEventListener('keydown', handleEscapeKey);
+}
+
+function handleEscapeKey(e) {
+    if (e.key === 'Escape') closeProjectModal();
+}
