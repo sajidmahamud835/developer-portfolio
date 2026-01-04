@@ -1,18 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
   <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="grad_market" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#10B981"/>
-      <stop offset="100%" style="stop-color:#059669"/>
+      <stop offset="100%" style="stop-color:#047857"/>
     </linearGradient>
   </defs>
-  <rect width="800" height="400" fill="url(#grad)" />
+  <rect width="800" height="400" fill="url(#grad_market)" />
   
-  <!-- Megaphone / Speaker -->
-  <path d="M250 250 L350 180 L350 320 Z" fill="white" />
-  <rect x="350" y="200" width="100" height="100" fill="white" />
-  <path d="M450 200 Q 550 150, 550 350" fill="none" stroke="white" stroke-width="20" stroke-linecap="round" opacity="0.8"/>
-  <path d="M480 220 Q 560 180, 560 330" fill="none" stroke="white" stroke-width="10" stroke-linecap="round" opacity="0.5"/>
+  <!-- Target Board -->
+  <circle cx="400" cy="180" r="80" fill="white" opacity="0.2"/>
+  <circle cx="400" cy="180" r="60" fill="white" opacity="0.4"/>
+  <circle cx="400" cy="180" r="40" fill="white" opacity="0.8"/>
+  <circle cx="400" cy="180" r="20" fill="#EF4444"/>
   
-  <text x="650" y="250" font-family="Arial, sans-serif" font-size="100" fill="white" font-weight="bold">SEO</text>
-  <text x="400" y="370" font-family="Arial, sans-serif" font-size="30" fill="white" font-weight="bold" text-anchor="middle">Digital Growth</text>
+  <!-- Arrow -->
+  <path d="M480 120 L400 180" stroke="#111827" stroke-width="6" stroke-linecap="round"/>
+  <path d="M480 120 L460 125 L475 140 Z" fill="#111827"/>
+  
+  <text x="400" y="340" font-family="Arial, sans-serif" font-size="30" fill="white" font-weight="bold" text-anchor="middle" letter-spacing="4">MARKETING</text>
 </svg>

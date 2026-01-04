@@ -1,22 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
   <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#4F46E5"/>
-      <stop offset="100%" style="stop-color:#3730A3"/>
+    <linearGradient id="grad_chain" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1"/>
+      <stop offset="100%" style="stop-color:#8B5CF6"/>
     </linearGradient>
   </defs>
-  <rect width="800" height="400" fill="url(#grad)" />
+  <rect width="800" height="400" fill="url(#grad_chain)" />
   
-  <!-- Blockchain Cubes -->
-  <path d="M400 100 L500 150 L500 250 L400 300 L300 250 L300 150 Z" fill="none" stroke="white" stroke-width="8" />
-  <path d="M400 100 L400 300" stroke="white" stroke-width="4" opacity="0.5"/>
-  <path d="M400 200 L500 150" stroke="white" stroke-width="4" opacity="0.5"/>
-  <path d="M400 200 L300 150" stroke="white" stroke-width="4" opacity="0.5"/>
+  <!-- Isometric Blocks -->
+  <g transform="translate(400, 200)">
+    <!-- Center Block -->
+    <path d="M0 -60 L52 -30 L0 0 L-52 -30 Z" fill="#A5B4FC"/>
+    <path d="M-52 -30 L0 0 L0 60 L-52 30 Z" fill="#818CF8"/>
+    <path d="M52 -30 L52 30 L0 60 L0 0 Z" fill="#6366F1"/>
+    
+    <!-- Top Right Connection -->
+    <path d="M80 -80 L132 -50 L80 -20 L28 -50 Z" fill="#C7D2FE" opacity="0.6"/>
+    <!-- Bottom Left Connection -->
+    <path d="M-80 50 L-28 80 L-80 110 L-132 80 Z" fill="#C7D2FE" opacity="0.6"/>
+    
+    <!-- Lines -->
+    <line x1="0" y1="0" x2="80" y2="-50" stroke="white" stroke-width="2" opacity="0.5"/>
+    <line x1="0" y1="0" x2="-80" y2="80" stroke="white" stroke-width="2" opacity="0.5"/>
+  </g>
   
-  <!-- Nodes -->
-  <circle cx="300" cy="150" r="10" fill="#A5B4FC"/>
-  <circle cx="500" cy="150" r="10" fill="#A5B4FC"/>
-  <circle cx="400" cy="300" r="10" fill="#A5B4FC"/>
-
-  <text x="400" y="360" font-family="Arial, sans-serif" font-size="35" fill="white" font-weight="bold" text-anchor="middle">WEB3 & BLOCKCHAIN</text>
+  <text x="400" y="350" font-family="Arial, sans-serif" font-size="30" fill="white" font-weight="bold" text-anchor="middle" letter-spacing="4">WEB3</text>
 </svg>
