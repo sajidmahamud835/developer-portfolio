@@ -4,12 +4,13 @@
  */
 
 import { getGigById, gigCategories, getGigsByCategory } from '../data/gig-data.js';
+import { parseMarkdown } from '../utils/markdown.js';
 
 let currentGig = null;
 let selectedOptions = {};
 let selectedAddons = {};
 
-export function render(gigId) {
+export async function render(gigId) {
     currentGig = getGigById(gigId);
 
     if (!currentGig) {
@@ -23,6 +24,29 @@ export function render(gigId) {
     }
 
     const category = gigCategories.find(c => c.id === currentGig.category);
+    let htmlContent = '<p>Loading details...</p>';
+
+    // Fetch Markdown Content
+    if (currentGig.contentPath) {
+        try {
+            const res = await fetch(currentGig.contentPath);
+            if (res.ok) {
+                const md = await res.text();
+                htmlContent = parseMarkdown(md);
+            } else {
+                htmlContent = `<p>${currentGig.description || 'Details unavailable.'}</p>`;
+            }
+        } catch (e) {
+            console.error('Failed to load gig content', e);
+            htmlContent = `<p>${currentGig.description || 'Details unavailable.'}</p>`;
+        }
+    } else {
+        // Fallback for legacy data without contentPath
+        htmlContent = `<p>${currentGig.description || ''}</p>`;
+    }
+
+    // Ensure styles are available
+    // import('../utils/markdown.js'); // side-effect import not needed if we rely on global styles
 
     return `
         <section class="gig-detail-page">
@@ -53,10 +77,11 @@ export function render(gigId) {
                 <div class="gig-detail-grid">
                     <!-- Left: Info -->
                     <div class="gig-info">
-                        <h3>About This Service</h3>
-                        <p>${currentGig.description.replace(/\*\*/g, '<strong>').replace(/\*\*/g, '</strong>')}</p>
+                        <div class="markdown-body">
+                            ${htmlContent}
+                        </div>
                         
-                        <h3>Keywords</h3>
+                        <h3 style="margin-top: 30px;">Keywords</h3>
                         <div class="gig-keywords">
                             ${currentGig.keywords.map(k => `<span class="keyword-tag">${k}</span>`).join('')}
                         </div>
@@ -64,6 +89,7 @@ export function render(gigId) {
 
                     <!-- Right: Calculator -->
                     <div class="gig-calculator">
+
                         <div class="calculator-header">
                             <h3>Configure Your Order</h3>
                             <div class="live-price" id="live-price">$${currentGig.basePrice}</div>
