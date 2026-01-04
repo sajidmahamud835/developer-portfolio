@@ -1,13 +1,14 @@
 # 👨‍💻 Web Developer Portfolio
 
 [![Live Demo](https://img.shields.io/badge/Demo-Live-brightgreen?style=for-the-badge)](https://sajidmahamud835.github.io/developer-portfolio/)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsajidmahamud835%2Fdeveloper-portfolio)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
-A professional, high-performance Single Page Application (SPA) built with **vanilla technologies**. This project demonstrates mastery of core web fundamentals by implementing complex routing, physics-based animations, and responsive interactions without any external frameworks.
+**Zero-Dependency Single Page Application (SPA)** demonstrating mastery of core web technologies. Features a custom-built client-side router, physics-based "wormhole" transitions, and complex scroll-driven animations—all built with **Pure HTML5, CSS3, and Vanilla JavaScript** (No Frameworks).
 
-**🔗 [Live Demo](https://sajidmahamud835.github.io/developer-portfolio/)**
+**🔗 Live Demo:** [GitHub Pages](https://sajidmahamud835.github.io/developer-portfolio/) | [Vercel Deployment](https://developer-portfolio-sajidmahamud835.vercel.app/)
 
 ## 🏗️ Architecture & Design
 

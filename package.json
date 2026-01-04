@@ -1,0 +1,23 @@
+{
+    "name": "developer-portfolio",
+    "version": "1.0.0",
+    "description": "Zero-dependency Single Page Application (SPA) portfolio built with Vanilla JS, HTML5, and CSS3 featuring physics-based animations.",
+    "scripts": {
+        "start": "serve .",
+        "deploy": "vercel --prod"
+    },
+    "keywords": [
+        "portfolio",
+        "spa",
+        "vanilla-js",
+        "no-framework",
+        "css-animations",
+        "interactive",
+        "physics-engine",
+        "black-hole",
+        "developer-tools"
+    ],
+    "author": "Muhammad Sajid Mahamud",
+    "license": "MIT",
+    "private": true
+}

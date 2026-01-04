@@ -37,10 +37,22 @@ A custom engine that turns scrolling into a primary navigation method.
 *   **Wormhole Asset**: `assets/disk.png` (High-res accretion disk rendering).
 *   **Optimization**: Native `loading="lazy"` on images; CSS `will-change` properties for GPU acceleration.
 
+## 4. Deployment Architecture
+*   **Dual-Strategy**: Configured for seamless deployment on both GitHub Pages and Vercel.
+*   **GitHub Pages**:
+    *   Uses `.nojekyll` to bypass Jekyll processing (allowing access to `_` prefixed directories if needed).
+    *   Uses `404.html` (copy of `index.html`) to handle client-side routing. When GitHub returns 404 for a specific route (e.g., `/about`), it serves the underlying app which then hydrates the correct view based on the URL.
+*   **Vercel**:
+    *   Uses `vercel.json` rewrite rules to direct all traffic to `index.html`, ensuring clean URL handling without 404 hacks.
+
 ## Directory Structure
 ```
 /
 ├── index.html            # SPA Shell (Overlay + Nav + Main)
+├── 404.html              # SPA Routing Fallback (GitHub Pages)
+├── .nojekyll             # GitHub Pages Config
+├── vercel.json           # Vercel Config
+├── package.json          # Project Metadata & Scripts
 ├── js/
 │   ├── app.js            # Entry point & Router
 │   ├── views/            # Individual page components (home, about, etc.)
