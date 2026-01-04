@@ -1,14 +1,14 @@
 # 👨‍💻 Web Developer Portfolio
 
-[![Live Demo](https://img.shields.io/badge/Demo-Live-brightgreen?style=for-the-badge)](https://sajidmahamud835.github.io/developer-portfolio/)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsajidmahamud835%2Fdeveloper-portfolio)
+[![Live Demo](https://img.shields.io/badge/Demo-Live-brightgreen?style=for-the-badge)](https://sajidmahamud835.github.io/)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsajidmahamud835%2Fsajidmahamud835.github.io)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
 **Zero-Dependency Single Page Application (SPA)** demonstrating mastery of core web technologies. Features a custom-built client-side router, physics-based "wormhole" transitions, and complex scroll-driven animations—all built with **Pure HTML5, CSS3, and Vanilla JavaScript** (No Frameworks).
 
-**🔗 Live Demo:** [GitHub Pages](https://sajidmahamud835.github.io/developer-portfolio/) | [Vercel Deployment](https://developer-portfolio-sajidmahamud835.vercel.app/)
+**🔗 Live Demo:** [GitHub Pages](https://sajidmahamud835.github.io/) | [Vercel Deployment](https://developer-portfolio-sajidmahamud835.vercel.app/)
 
 ## 🏗️ Architecture & Design
 
@@ -40,8 +40,8 @@ This project follows a **Zero-Dependency** philosophy, proving that modern, dyna
 Since this is a static site, you can simply open `index.html` in your browser or serve it with any static server.
 
 ```bash
-git clone https://github.com/sajidmahamud835/developer-portfolio.git
-cd developer-portfolio
+git clone https://github.com/sajidmahamud835/sajidmahamud835.github.io.git
+cd sajidmahamud835.github.io
 # Serve with any static server (e.g., Live Server, Vercel CLI, python http.server)
 vercel dev
 ```
