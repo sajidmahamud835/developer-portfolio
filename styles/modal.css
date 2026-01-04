@@ -93,19 +93,21 @@
 .modal-title {
     font-size: 2rem;
     margin: 0;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    /* Improved readability: solid color instead of gradient text */
+    color: var(--text-primary);
+    background: none;
+    -webkit-text-fill-color: initial;
     font-weight: 800;
 }
 
 /* Stats Row */
 .modal-stats-row {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     margin-top: 10px;
     font-size: 0.9rem;
     color: var(--text-secondary);
+    flex-wrap: wrap;
 }
 
 .stat-item {
@@ -125,8 +127,58 @@
 .modal-desc {
     font-size: 1.05rem;
     line-height: 1.7;
-    color: var(--text-nav);
+    color: var(--text-primary);
+    /* Better contrast */
     margin-bottom: 2rem;
+}
+
+/* Commits Section */
+.commits-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.commits-section h5 {
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.commit-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 0.9rem;
+}
+
+.commit-item:last-child {
+    border-bottom: none;
+}
+
+.commit-msg {
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70%;
+    display: block;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.commit-msg:hover {
+    color: var(--accent);
+}
+
+.commit-date {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-family: monospace;
 }
 
 /* Tech Tags - "Tag Look" */
@@ -138,8 +190,6 @@
 }
 
 .tech-tag {
-    background: rgba(var(--accent-rgb), 0.1);
-    /* Fallback */
     background: var(--bg-hover);
     border: 1px solid var(--border-light);
     color: var(--text-primary);
@@ -202,6 +252,29 @@
     margin-top: 2rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--border-light);
+    align-items: center;
+}
+
+.share-btn {
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1.2rem;
+}
+
+.share-btn:hover {
+    background: var(--bg-hover);
+    color: var(--accent);
+    border-color: var(--accent);
 }
 
 @media (max-width: 768px) {
@@ -224,6 +297,18 @@
 
     .modal-actions {
         flex-direction: column;
+    }
+
+    .share-btn {
+        margin-left: 0;
+        width: 100%;
+        border-radius: 8px;
+        gap: 10px;
+    }
+
+    .share-btn::after {
+        content: ' Share Project';
+        font-size: 1rem;
     }
 
     .anchor-button {
