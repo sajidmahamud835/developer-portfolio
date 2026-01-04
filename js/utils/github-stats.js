@@ -36,7 +36,8 @@ export async function getRepoStats(repoUrl) {
             stars: data.stargazers_count,
             forks: data.forks_count,
             language: data.language,
-            description: data.description
+            description: data.description,
+            homepage: data.homepage
         };
 
         // Cache it

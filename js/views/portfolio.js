@@ -266,9 +266,16 @@ function openProjectModal(projectId) {
             `;
 
             // If we have a longer description from GitHub, maybe append it or replace?
-            // User requested "real time data". Let's use the GH description if it's substantial.
             if (stats.description && stats.description.length > project.description.length) {
                 document.getElementById('modal-description').textContent = stats.description;
+            }
+
+            // Update Live Demo Link from GitHub Homepage if local demo is missing
+            const demoBtn = document.getElementById('modal-demo');
+            if (!project.demo && stats.homepage) {
+                demoBtn.href = stats.homepage;
+                demoBtn.style.display = 'inline-block';
+                demoBtn.textContent = 'Live Demo';
             }
         } else {
             // Fallback for no stats
@@ -314,12 +321,27 @@ function openProjectModal(projectId) {
     githubBtn.href = project.github;
 
     const demoBtn = document.getElementById('modal-demo');
+
+    // Check if we have a demo link from local data OR from GitHub stats (fetched real-time)
+    // Note: To use stats.homepage, we need to have waited for getRepoStats. 
+    // However, stats are fetched async. So we should update the button *inside* the then() block.
+
+    // Default (Local)
     if (project.demo) {
         demoBtn.href = project.demo;
         demoBtn.style.display = 'inline-block';
     } else {
         demoBtn.style.display = 'none';
+        demoBtn.href = '#';
     }
+
+    // We need to re-fetch or access the stats promise chain to update this derived UI
+    // Ideally, we move this logic into the .then(stats => ...) block above.
+    // BUT, getRepoCommits is separate.
+
+    // Let's modify the stats block to handle the demo link too.
+    // Re-selecting element inside the stats promise for clarity.
+
 
     // Store ID for share function
     window.currentProjectId = project.id;
