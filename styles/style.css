@@ -501,9 +501,10 @@ footer p {
 }
 
 .form-status .success {
-    color: green;
+    color: #4caf50;
     padding: 1rem;
-    background: #e8f5e9;
+    background: rgba(76, 175, 80, 0.15);
+    border: 1px solid rgba(76, 175, 80, 0.3);
     border-radius: 8px;
 }
 
@@ -542,9 +543,10 @@ footer p {
     align-items: center;
     gap: 0.5rem;
     padding: 0.8rem 1.2rem;
-    background: #e8f5e9;
+    background: rgba(76, 175, 80, 0.15);
+    border: 1px solid rgba(76, 175, 80, 0.3);
     border-radius: 30px;
-    color: #2e7d32;
+    color: #4caf50;
     font-weight: 500;
 }
 
