@@ -313,6 +313,14 @@ function openProjectModal(projectId) {
                     <span class="commit-date">${new Date(c.date).toLocaleDateString()}</span>
                 </div>
             `).join('');
+        } else {
+            // Show fallback message if enabled, or keep hidden?
+            // User complained "not loading", so explicit feedback is better.
+            commitsSection.style.display = 'block';
+            commitsList.innerHTML = `<p style="color:var(--text-secondary); font-size:0.9rem; font-style:italic;">
+                No recent activity found or API rate limit exceeded. 
+                <a href="${project.github}" target="_blank" style="color:var(--accent)">Check GitHub</a>
+            </p>`;
         }
     });
 
