@@ -203,7 +203,8 @@ section {
 }
 
 .info-box {
-    background-color: #ffffffef;
+    background-color: rgba(15, 15, 26, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 5px;
     margin: 5px;
     padding: 5px;
@@ -328,7 +329,8 @@ footer p {
 }
 
 .timeline-item {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     padding: 1.5rem 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -342,7 +344,8 @@ footer p {
 
 /* Skills Grid */
 .skill-card {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     padding: 1.5rem;
     border-radius: 12px;
     text-align: center;
@@ -356,7 +359,7 @@ footer p {
 
 .skill-card h4 {
     margin: 0.5rem 0;
-    color: #333;
+    color: #e0e0e0;
 }
 
 .skill-card p {
@@ -370,7 +373,8 @@ footer p {
 }
 
 .service-card {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -383,7 +387,7 @@ footer p {
 
 .service-card h3 {
     margin: 0 0 1rem;
-    color: #333;
+    color: #e0e0e0;
 }
 
 .service-features {
@@ -394,14 +398,15 @@ footer p {
 
 .service-features li {
     padding: 0.3rem 0;
-    color: #666;
+    color: #aaa;
     font-size: 0.9rem;
 }
 
 .services-cta {
     text-align: center;
     padding: 3rem;
-    background: linear-gradient(135deg, #fff5f5, #fff8f0);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 12px;
 }
 
@@ -411,7 +416,8 @@ footer p {
 }
 
 .project-card {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     padding: 1.5rem;
     border-radius: 12px;
     border-left: 4px solid tomato;
@@ -473,13 +479,15 @@ footer p {
 
 .form-group label {
     font-weight: 600;
-    color: #333;
+    color: #bbb;
 }
 
 .form-group input,
 .form-group textarea {
     padding: 0.8rem 1rem;
-    border: 2px solid #eee;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
     border-radius: 8px;
     font-family: inherit;
     font-size: 1rem;
@@ -514,15 +522,15 @@ footer p {
     align-items: center;
     gap: 1rem;
     padding: 1rem;
-    background: #f9f9f9;
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 8px;
     text-decoration: none;
-    color: #333;
+    color: #e0e0e0;
     transition: background 0.3s ease;
 }
 
 .social-links li a:hover {
-    background: #fff5f5;
+    background: rgba(255, 107, 107, 0.1);
 }
 
 .social-icon {
