@@ -15,7 +15,9 @@ const routes = {
     'services': 'services',
     'portfolio': 'portfolio',
     'contact': 'contact',
-    'gig': 'gig-detail'  // Dynamic gig pages
+    'gig': 'gig-detail',
+    'blog': 'blog',
+    'blog-post': 'blog-detail'
 };
 
 // ============================================
