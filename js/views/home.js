@@ -1,9 +1,13 @@
 /**
  * Home View
- * Hero section with animated text and CTAs
+ * Hero section with animated text, CTAs, and featured services
  */
 
+import { getFeaturedGigs, gigCategories } from '../data/gig-data.js';
+
 export function render() {
+    const featuredGigs = getFeaturedGigs();
+
     return `
         <section id="home" class="hero">
             <div class="container flex vartical-center">
@@ -21,16 +25,47 @@ export function render() {
                         learning new technologies to deliver the best solutions.
                     </p>
                     <div class="hero-cta">
-                        <a href="/developer-portfolio/contact" onclick="route(event)" class="anchor-button button-bg-primary hover-lift">
+                        <a href="?route=contact" onclick="route(event)" class="anchor-button button-bg-primary hover-lift">
                             Contact Me
                         </a>
-                        <a href="/developer-portfolio/portfolio" onclick="route(event)" class="anchor-button button-bg-secondary hover-lift">
+                        <a href="?route=portfolio" onclick="route(event)" class="anchor-button button-bg-secondary hover-lift">
                             View Portfolio
                         </a>
                     </div>
                 </div>
                 <div class="hero-image half-width slide-in-right">
                     <img src="images/sajid-photo.png" alt="Web Developer Sajid" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Services -->
+        <section id="featured-services" class="featured-services animate-on-scroll">
+            <div class="container">
+                <h2 class="section-title">Popular Services</h2>
+                <p class="section-subtitle">Professional development with transparent pricing</p>
+                
+                <div class="featured-gig-grid">
+                    ${featuredGigs.map(gig => {
+        const category = gigCategories.find(c => c.id === gig.category);
+        return `
+                            <a href="?route=gig&gig=${gig.id}" onclick="route(event)" class="featured-gig-card">
+                                <div class="featured-gig-icon">${category?.icon || '💼'}</div>
+                                <h3>${gig.shortTitle}</h3>
+                                <p>${gig.description.replace(/\*\*/g, '').substring(0, 80)}...</p>
+                                <div class="featured-gig-price">
+                                    <span>From</span>
+                                    <strong>$${gig.basePrice}</strong>
+                                </div>
+                            </a>
+                        `;
+    }).join('')}
+                </div>
+
+                <div class="featured-cta">
+                    <a href="?route=services" onclick="route(event)" class="anchor-button button-bg-primary">
+                        View All Services →
+                    </a>
                 </div>
             </div>
         </section>
@@ -48,7 +83,7 @@ export function render() {
                         that work seamlessly on all devices. My goal is to build experiences where 
                         users don't feel like they've switched devices.
                     </p>
-                    <a href="/developer-portfolio/services" onclick="route(event)" class="anchor-button button-bg-primary hover-lift">
+                    <a href="?route=services" onclick="route(event)" class="anchor-button button-bg-primary hover-lift">
                         My Services
                     </a>
                 </div>

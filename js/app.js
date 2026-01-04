@@ -1,6 +1,7 @@
 /**
- * Vanilla SPA Router
- * Handles client-side routing without page reloads using the History API.
+ * Vanilla SPA Router (Query-String Based)
+ * Handles client-side routing using URL query parameters.
+ * Routes use format: ?route=about, ?route=services, etc.
  * No external dependencies - pure ES6+ JavaScript.
  */
 
@@ -8,11 +9,12 @@
 // ROUTE DEFINITIONS
 // ============================================
 const routes = {
-    '/': 'home',
-    '/about': 'about',
-    '/services': 'services',
-    '/portfolio': 'portfolio',
-    '/contact': 'contact'
+    'home': 'home',
+    'about': 'about',
+    'services': 'services',
+    'portfolio': 'portfolio',
+    'contact': 'contact',
+    'gig': 'gig-detail'  // Dynamic gig pages
 };
 
 // ============================================
@@ -20,20 +22,29 @@ const routes = {
 // ============================================
 
 /**
- * Main router function - determines current path and loads appropriate view
+ * Get current route from query string
+ * @returns {string} Route name (defaults to 'home')
+ */
+function getCurrentRoute() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('route') || 'home';
+}
+
+/**
+ * Get gig ID from query string (for gig detail pages)
+ * @returns {string|null} Gig ID or null
+ */
+function getGigId() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('gig');
+}
+
+/**
+ * Main router function - determines current route and loads appropriate view
  */
 async function router() {
-    // Get path - handle both root and GitHub Pages subdirectory
-    let path = window.location.pathname;
-
-    // Remove base path for GitHub Pages (if deployed there)
-    const basePath = '/developer-portfolio';
-    if (path.startsWith(basePath)) {
-        path = path.slice(basePath.length) || '/';
-    }
-
-    // Default to home if path not found
-    const viewName = routes[path] || 'home';
+    const routeName = getCurrentRoute();
+    const viewName = routes[routeName] || 'home';
 
     try {
         // Dynamically import the view module
@@ -48,8 +59,9 @@ async function router() {
         // Wait for exit animation to complete
         await new Promise(resolve => setTimeout(resolve, 200));
 
-        // Render new content
-        app.innerHTML = await module.render();
+        // Render new content (pass gig ID for detail pages)
+        const gigId = getGigId();
+        app.innerHTML = await module.render(gigId);
 
         // Trigger enter animation
         app.classList.remove('fade-out');
@@ -57,11 +69,11 @@ async function router() {
 
         // Run view-specific initialization if it exists
         if (typeof module.init === 'function') {
-            module.init();
+            module.init(gigId);
         }
 
         // Update active nav link
-        updateActiveNav(path);
+        updateActiveNav(routeName);
 
         // Scroll to top on route change
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -72,10 +84,31 @@ async function router() {
             <section class="error-page container">
                 <h1>404</h1>
                 <p>Page not found</p>
-                <a href="/" onclick="route(event)" class="anchor-button button-bg-primary">Go Home</a>
+                <a href="?" onclick="route(event)" class="anchor-button button-bg-primary">Go Home</a>
             </section>
         `;
     }
+}
+
+/**
+ * Navigate to a route
+ * @param {string} routeName - Route to navigate to
+ * @param {object} params - Additional query params (e.g., { gig: 'web-dev' })
+ */
+function navigateTo(routeName, params = {}) {
+    const searchParams = new URLSearchParams();
+    if (routeName !== 'home') {
+        searchParams.set('route', routeName);
+    }
+    Object.entries(params).forEach(([key, value]) => {
+        searchParams.set(key, value);
+    });
+
+    const queryString = searchParams.toString();
+    const newUrl = queryString ? `?${queryString}` : window.location.pathname;
+
+    window.history.pushState({}, '', newUrl);
+    router();
 }
 
 /**
@@ -86,24 +119,33 @@ window.route = function (event) {
     event = event || window.event;
     event.preventDefault();
 
-    const href = event.target.closest('a')?.href;
+    const anchor = event.target.closest('a');
+    if (!anchor) return;
+
+    const href = anchor.getAttribute('href');
     if (!href) return;
 
-    // Only handle internal links
-    if (new URL(href).origin === window.location.origin) {
-        window.history.pushState({}, '', href);
-        router();
+    // Parse the href to extract route info
+    if (href.startsWith('?') || href === '' || href === '?') {
+        // Query-string based navigation
+        const params = new URLSearchParams(href.replace('?', ''));
+        const routeName = params.get('route') || 'home';
+        const gigId = params.get('gig');
+
+        navigateTo(routeName, gigId ? { gig: gigId } : {});
     }
 };
 
 /**
  * Updates the active state of navigation links
- * @param {string} currentPath - Current route path
+ * @param {string} currentRoute - Current route name
  */
-function updateActiveNav(currentPath) {
-    document.querySelectorAll('.nav-link').forEach(link => {
-        const linkPath = new URL(link.href).pathname.replace('/developer-portfolio', '') || '/';
-        link.classList.toggle('active', linkPath === currentPath);
+function updateActiveNav(currentRoute) {
+    document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
+        const href = link.getAttribute('href') || '';
+        const params = new URLSearchParams(href.replace('?', ''));
+        const linkRoute = params.get('route') || 'home';
+        link.classList.toggle('active', linkRoute === currentRoute);
     });
 }
 
@@ -154,4 +196,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Export for use in views
-export { router };
+export { router, navigateTo, getGigId };

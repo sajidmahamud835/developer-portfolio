@@ -10,8 +10,8 @@ export function initIOSInstallPrompt() {
     const hasSeenPrompt = localStorage.getItem('iosInstallPromptSeen');
 
     if (isIOS && !isStandalone && !hasSeenPrompt) {
-        // Wait 30 seconds before showing prompt (user has stayed on site)
-        setTimeout(() => showIOSPrompt(), 30000);
+        // Wait 20 seconds before showing prompt (user has stayed on site)
+        setTimeout(() => showIOSPrompt(), 20000);
     }
 }
 

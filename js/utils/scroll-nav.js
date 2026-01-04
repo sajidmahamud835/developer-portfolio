@@ -26,6 +26,9 @@ export class ScrollNavigator {
     }
 
     handleScroll() {
+        // Disable scroll navigation on mobile
+        if (window.innerWidth < 768) return;
+
         const now = Date.now();
         if (this.isNavigating || (now - this.lastScrollTime < this.cooldown)) return;
 

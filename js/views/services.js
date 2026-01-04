@@ -1,71 +1,38 @@
 /**
- * Services View
- * Service offerings with animated cards
+ * Services View - Fiverr-Style Gig Listings
+ * Displays service categories and interactive gig cards
  */
 
-export function render() {
-    const services = [
-        {
-            icon: '🌐',
-            title: 'Web Development',
-            description: 'Full-stack web applications using React, Next.js, and Node.js. From landing pages to complex e-commerce platforms.',
-            features: ['Responsive Design', 'SEO Optimization', 'Performance Tuned']
-        },
-        {
-            icon: '📱',
-            title: 'Mobile Development',
-            description: 'Cross-platform mobile apps using React Native and Expo. Native feel with shared codebase.',
-            features: ['iOS & Android', 'Push Notifications', 'Offline Support']
-        },
-        {
-            icon: '🛒',
-            title: 'E-Commerce Solutions',
-            description: 'Custom online stores with secure payment integration. Shopify, WooCommerce, or custom solutions.',
-            features: ['Payment Integration', 'Inventory Management', 'Analytics Dashboard']
-        },
-        {
-            icon: '🤖',
-            title: 'AI Integration',
-            description: 'Integrate AI capabilities into your applications. Chatbots, automation, and intelligent features.',
-            features: ['OpenAI Integration', 'Custom Chatbots', 'Process Automation']
-        },
-        {
-            icon: '🎨',
-            title: 'UI/UX Design',
-            description: 'Modern, user-centered designs that convert. Wireframes to polished interfaces.',
-            features: ['Figma/Sketch', 'Prototyping', 'Design Systems']
-        },
-        {
-            icon: '⚡',
-            title: 'Performance Optimization',
-            description: 'Speed up your existing applications. Core Web Vitals optimization and code audits.',
-            features: ['Lighthouse Audits', 'Code Splitting', 'CDN Setup']
-        }
-    ];
+import { gigs, gigCategories } from '../data/gig-data.js';
 
+export function render() {
     return `
-        <section id="services">
+        <section id="services" class="services-page">
             <div class="container">
-                <h1 class="section-title slide-up">Services</h1>
-                <p class="section-subtitle">What I can build for you</p>
-                
-                <div class="services-grid grid">
-                    ${services.map((service, index) => `
-                        <div class="service-card hover-lift animate-on-scroll stagger-${(index % 5) + 1}">
-                            <div class="service-icon">${service.icon}</div>
-                            <h3>${service.title}</h3>
-                            <p>${service.description}</p>
-                            <ul class="service-features">
-                                ${service.features.map(f => `<li>✓ ${f}</li>`).join('')}
-                            </ul>
-                        </div>
+                <h1 class="section-title slide-up">My Services</h1>
+                <p class="section-subtitle">Professional development services with transparent pricing</p>
+
+                <!-- Category Filters -->
+                <div class="category-filters animate-on-scroll">
+                    <button class="category-btn active" data-category="all">All Services</button>
+                    ${gigCategories.map(cat => `
+                        <button class="category-btn" data-category="${cat.id}">
+                            <span>${cat.icon}</span> ${cat.name}
+                        </button>
                     `).join('')}
                 </div>
-                
+
+                <!-- Gig Grid -->
+                <div class="gig-grid">
+                    ${gigs.map(gig => renderGigCard(gig)).join('')}
+                </div>
+
+                <!-- CTA Section -->
                 <div class="services-cta animate-on-scroll">
-                    <h3>Ready to start your project?</h3>
-                    <a href="/contact" onclick="route(event)" class="anchor-button button-bg-primary hover-lift">
-                        Get In Touch
+                    <h3>Need something custom?</h3>
+                    <p>Let's discuss your project requirements</p>
+                    <a href="?route=contact" onclick="route(event)" class="anchor-button button-bg-primary">
+                        Get a Free Quote
                     </a>
                 </div>
             </div>
@@ -73,8 +40,62 @@ export function render() {
     `;
 }
 
+function renderGigCard(gig) {
+    const category = gigCategories.find(c => c.id === gig.category);
+    return `
+        <article class="gig-card animate-on-scroll" data-category="${gig.category}">
+            <div class="gig-banner">
+                <div class="gig-banner-placeholder">
+                    <span class="gig-category-icon">${category?.icon || '💼'}</span>
+                </div>
+            </div>
+            <div class="gig-content">
+                <span class="gig-category">${category?.name || 'Service'}</span>
+                <h3 class="gig-title">${gig.shortTitle}</h3>
+                <p class="gig-description">${gig.description.replace(/\*\*/g, '')}</p>
+                <div class="gig-meta">
+                    <span class="gig-delivery">🚀 ${gig.deliveryDays} days</span>
+                </div>
+                <div class="gig-footer">
+                    <div class="gig-price">
+                        <span class="price-label">Starting at</span>
+                        <span class="price-value">$${gig.basePrice}</span>
+                    </div>
+                    <a href="?route=gig&gig=${gig.id}" onclick="route(event)" class="gig-cta">
+                        View Details →
+                    </a>
+                </div>
+            </div>
+        </article>
+    `;
+}
+
 export function init() {
+    // Import animations
     import('../utils/animations.js').then(module => {
         module.observeElements();
+    });
+
+    // Category filter functionality
+    const filterBtns = document.querySelectorAll('.category-btn');
+    const gigCards = document.querySelectorAll('.gig-card');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Update active button
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Filter cards
+            const category = btn.dataset.category;
+            gigCards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                    card.classList.add('fade-in');
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
     });
 }
