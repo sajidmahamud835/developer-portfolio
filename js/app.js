@@ -5,6 +5,7 @@
  * No external dependencies - pure ES6+ JavaScript.
  */
 import ThemeManager from './utils/theme.js';
+import './utils/contact-popup.js'; // Exposes openContactPopup/closeContactPopup to window
 
 // ============================================
 // ROUTE DEFINITIONS
@@ -17,7 +18,8 @@ const routes = {
     'contact': 'contact',
     'gig': 'gig-detail',
     'blog': 'blog',
-    'blog-post': 'blog-detail'
+    'blog-post': 'blog-detail',
+    'apps': 'apps'
 };
 
 // ============================================

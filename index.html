@@ -46,6 +46,8 @@
     <link rel="stylesheet" href="styles/services.css">
     <link rel="stylesheet" href="styles/gig-detail.css">
     <link rel="stylesheet" href="styles/typography.css">
+    <link rel="stylesheet" href="styles/apps.css">
+    <link rel="stylesheet" href="styles/contact-popup.css">
 </head>
 
 <body>
@@ -65,6 +67,49 @@
             <div class="modal-footer">
                 <a id="modal-github" href="#" target="_blank" class="anchor-button button-bg-primary">View on GitHub</a>
             </div>
+        </div>
+    </div>
+
+    <!-- Contact Popup Modal -->
+    <div id="contact-popup">
+        <div class="contact-popup-content">
+            <button class="popup-close" onclick="closeContactPopup()">×</button>
+            <h3>Get In Touch 👋</h3>
+
+            <div class="contact-options">
+                <a href="mailto:sajid@sajidmahamud.com" class="contact-option">
+                    <div class="contact-option-icon">📧</div>
+                    <div class="contact-option-text">
+                        <strong>Email Me</strong>
+                        <span>sajid@sajidmahamud.com</span>
+                    </div>
+                </a>
+
+                <a href="https://calendly.com/sajidmahamud835" target="_blank" rel="noopener" class="contact-option">
+                    <div class="contact-option-icon">📅</div>
+                    <div class="contact-option-text">
+                        <strong>Schedule a Call</strong>
+                        <span>Book a 15-min intro chat</span>
+                    </div>
+                </a>
+
+                <a href="https://linkedin.com/in/sajidmahamud835" target="_blank" rel="noopener" class="contact-option">
+                    <div class="contact-option-icon">💼</div>
+                    <div class="contact-option-text">
+                        <strong>LinkedIn</strong>
+                        <span>Connect with me</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="contact-divider">or send a quick message</div>
+
+            <form class="contact-mini-form" action="https://formspree.io/f/xpwaqjrj" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message..." required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
         </div>
     </div>
 
@@ -110,32 +155,24 @@
         </button>
     </nav>
 
-    <!-- Mobile Bottom Navigation -->
+    <!-- Mobile Bottom Navigation (4 Items) -->
     <nav class="mobile-nav">
+        <a href="?route=apps" onclick="route(event)" class="mobile-nav-link">
+            <span class="nav-icon">📱</span>
+            <span class="nav-label">Apps</span>
+        </a>
         <a href="?" onclick="route(event)" class="mobile-nav-link">
             <span class="nav-icon">🏠</span>
             <span class="nav-label">Home</span>
         </a>
-        <a href="?route=about" onclick="route(event)" class="mobile-nav-link">
-            <span class="nav-icon">👤</span>
-            <span class="nav-label">About</span>
-        </a>
-        <a href="?route=services" onclick="route(event)" class="mobile-nav-link">
-            <span class="nav-icon">💼</span>
-            <span class="nav-label">Services</span>
-        </a>
-        <a href="?route=portfolio" onclick="route(event)" class="mobile-nav-link">
-            <span class="nav-icon">📁</span>
-            <span class="nav-label">Portfolio</span>
-        </a>
         <a href="?route=blog" onclick="route(event)" class="mobile-nav-link">
-            <span class="nav-icon">📝</span>
-            <span class="nav-label">Blog</span>
+            <span class="nav-icon">📰</span>
+            <span class="nav-label">Feed</span>
         </a>
-        <a href="?route=contact" onclick="route(event)" class="mobile-nav-link">
+        <button onclick="openContactPopup()" class="mobile-nav-link mobile-nav-btn">
             <span class="nav-icon">✉️</span>
             <span class="nav-label">Contact</span>
-        </a>
+        </button>
     </nav>
 
     <!-- Main App Container - Views render here -->
