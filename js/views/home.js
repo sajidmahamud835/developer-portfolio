@@ -21,10 +21,10 @@ export function render() {
                         learning new technologies to deliver the best solutions.
                     </p>
                     <div class="hero-cta">
-                        <a href="/contact" onclick="route(event)" class="anchor-button button-bg-primary hover-lift">
+                        <a href="/developer-portfolio/contact" onclick="route(event)" class="anchor-button button-bg-primary hover-lift">
                             Contact Me
                         </a>
-                        <a href="/portfolio" onclick="route(event)" class="anchor-button button-bg-secondary hover-lift">
+                        <a href="/developer-portfolio/portfolio" onclick="route(event)" class="anchor-button button-bg-secondary hover-lift">
                             View Portfolio
                         </a>
                     </div>
@@ -48,7 +48,7 @@ export function render() {
                         that work seamlessly on all devices. My goal is to build experiences where 
                         users don't feel like they've switched devices.
                     </p>
-                    <a href="/services" onclick="route(event)" class="anchor-button button-bg-primary hover-lift">
+                    <a href="/developer-portfolio/services" onclick="route(event)" class="anchor-button button-bg-primary hover-lift">
                         My Services
                     </a>
                 </div>

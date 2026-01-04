@@ -141,6 +141,11 @@ window.addEventListener('popstate', router);
 document.addEventListener('DOMContentLoaded', () => {
     initMobileNav();
     router();
+
+    // Initialize Auto-Scroll Navigation
+    import('./utils/scroll-nav.js').then(module => {
+        new module.ScrollNavigator();
+    });
 });
 
 // Export for use in views
