@@ -24,7 +24,14 @@ export function render() {
 
                 <!-- Gig Grid -->
                 <div class="gig-grid">
-                    ${gigs.map(gig => renderGigCard(gig)).join('')}
+
+                </div>
+
+                <!-- Load More -->
+                <div class="load-more-container" style="text-align: center; margin-bottom: 60px;">
+                    <button id="load-more-btn" class="anchor-button button-bg-secondary" style="display: none;">
+                        Load More
+                    </button>
                 </div>
 
                 <!-- CTA Section -->
@@ -76,7 +83,14 @@ export function init() {
 
     // Category filter functionality
     const filterBtns = document.querySelectorAll('.category-btn');
-    const gigCards = document.querySelectorAll('.gig-card');
+    const gigGrid = document.querySelector('.gig-grid');
+    const allGigs = gigs; // Store reference
+    let currentCategory = 'all';
+    let visibleCount = 6;
+    const BATCH_SIZE = 6;
+
+    // Initial Render
+    renderBatch(allGigs, currentCategory, visibleCount);
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -84,16 +98,49 @@ export function init() {
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
-            // Filter cards
-            const category = btn.dataset.category;
-            gigCards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'block';
-                    card.classList.add('fade-in');
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            // Reset pagination
+            currentCategory = btn.dataset.category;
+            visibleCount = BATCH_SIZE;
+
+            // Re-render
+            renderBatch(allGigs, currentCategory, visibleCount);
         });
     });
+
+    // Load More Button
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', () => {
+            visibleCount += BATCH_SIZE;
+            renderBatch(allGigs, currentCategory, visibleCount);
+        });
+    }
+}
+
+function renderBatch(allGigs, category, limit) {
+    const gigGrid = document.querySelector('.gig-grid');
+    const loadMoreBtn = document.getElementById('load-more-btn');
+
+    // Filter
+    const filtered = allGigs.filter(g => category === 'all' || g.category === category);
+
+    // Slice
+    const toShow = filtered.slice(0, limit);
+
+    // Render
+    gigGrid.innerHTML = toShow.map(gig => renderGigCard(gig)).join('');
+
+    // Animate new items
+    const cards = gigGrid.querySelectorAll('.gig-card');
+    cards.forEach(card => card.classList.add('fade-in'));
+
+    // Handle Load More Button Visibility
+    if (loadMoreBtn) {
+        if (filtered.length > limit) {
+            loadMoreBtn.style.display = 'inline-block';
+            loadMoreBtn.innerHTML = `Load More (${filtered.length - limit} remaining)`;
+        } else {
+            loadMoreBtn.style.display = 'none';
+        }
+    }
 }
