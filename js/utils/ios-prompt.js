@@ -1,6 +1,6 @@
 /**
  * iOS Add to Home Screen Prompt
- * Shows a popup suggesting users add the app to their home screen on iOS Safari
+ * Shows a subtle popup suggesting users add the app to their home screen on iOS Safari
  */
 
 export function initIOSInstallPrompt() {
@@ -10,8 +10,8 @@ export function initIOSInstallPrompt() {
     const hasSeenPrompt = localStorage.getItem('iosInstallPromptSeen');
 
     if (isIOS && !isStandalone && !hasSeenPrompt) {
-        // Wait for page to load, then show prompt
-        setTimeout(() => showIOSPrompt(), 3000);
+        // Wait 30 seconds before showing prompt (user has stayed on site)
+        setTimeout(() => showIOSPrompt(), 30000);
     }
 }
 
@@ -22,13 +22,7 @@ function showIOSPrompt() {
         <div class="ios-prompt-content">
             <button class="ios-prompt-close" onclick="this.parentElement.parentElement.remove(); localStorage.setItem('iosInstallPromptSeen', 'true');">×</button>
             <div class="ios-prompt-icon">📲</div>
-            <h3>Add to Home Screen</h3>
-            <p>Install this app for a better experience!</p>
-            <div class="ios-prompt-steps">
-                <span>Tap</span>
-                <span class="ios-share-icon">⬆️</span>
-                <span>then "Add to Home Screen"</span>
-            </div>
+            <p>Tap <span class="ios-share-icon">⬆️</span> then "Add to Home Screen"</p>
         </div>
     `;
     document.body.appendChild(prompt);
@@ -38,63 +32,66 @@ function showIOSPrompt() {
     style.textContent = `
         #ios-install-prompt {
             position: fixed;
-            bottom: 80px;
+            bottom: 100px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10000;
-            animation: slideUp 0.4s ease-out;
+            animation: fadeInUp 0.5s ease-out;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+        #ios-install-prompt:hover {
+            opacity: 1;
         }
         .ios-prompt-content {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             color: white;
-            padding: 20px 30px;
-            border-radius: 20px;
+            padding: 12px 20px;
+            border-radius: 12px;
             text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             position: relative;
-            max-width: 300px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         .ios-prompt-close {
             position: absolute;
-            top: 10px;
-            right: 15px;
-            background: none;
+            top: -8px;
+            right: -8px;
+            background: rgba(255,255,255,0.2);
             border: none;
             color: white;
-            font-size: 24px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            font-size: 14px;
             cursor: pointer;
-            opacity: 0.8;
         }
         .ios-prompt-icon {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
-        .ios-prompt-content h3 {
-            margin: 0 0 8px;
-            font-size: 18px;
+            font-size: 24px;
         }
         .ios-prompt-content p {
-            margin: 0 0 15px;
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        .ios-prompt-steps {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 14px;
-            background: rgba(255,255,255,0.2);
-            padding: 10px 15px;
-            border-radius: 10px;
+            margin: 0;
+            font-size: 13px;
         }
         .ios-share-icon {
-            font-size: 20px;
+            font-size: 16px;
         }
-        @keyframes slideUp {
-            from { transform: translateX(-50%) translateY(100px); opacity: 0; }
-            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        @keyframes fadeInUp {
+            from { transform: translateX(-50%) translateY(20px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 0.6; }
         }
     `;
     document.head.appendChild(style);
+
+    // Auto-dismiss after 10 seconds
+    setTimeout(() => {
+        const el = document.getElementById('ios-install-prompt');
+        if (el) {
+            el.style.opacity = '0';
+            setTimeout(() => el.remove(), 500);
+        }
+    }, 10000);
 }
