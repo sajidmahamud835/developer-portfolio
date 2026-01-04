@@ -4,7 +4,7 @@
  */
 
 import { projects, projectCategories } from '../data/portfolio-data.js';
-import { projects, projectCategories } from '../data/portfolio-data.js';
+
 import { getRepoStats, getRepoCommits } from '../utils/github-stats.js';
 
 export function render() {
