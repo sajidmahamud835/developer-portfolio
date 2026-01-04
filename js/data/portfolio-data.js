@@ -206,7 +206,7 @@ export const projects = [
         category: 'web',
         description: 'Zero-dependency SPA with custom router and physics engine. You are here!',
         tech: ['Vanilla JS', 'CSS Variables', 'History API'],
-        github: 'https://github.com/sajidmahamud835/developer-portfolio',
+        github: 'https://github.com/sajidmahamud835/sajidmahamud835.github.io',
         demo: null,
         image: 'images/sajid-photo.png',
         features: [
