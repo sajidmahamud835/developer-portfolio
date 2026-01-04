@@ -3,190 +3,138 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description"
-        content="Web Developer Sajid's Portfolio - Full Stack Developer specializing in modern web technologies. Zero-dependency SPA with physics-based animations.">
-    <title>Sajid Mahamud | Web Developer Portfolio</title>
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-
-    <!-- Apple PWA Configuration (Standalone App - No Address Bar) -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="SajidDev">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#ff6b6b">
-
-    <!-- SEO for Client-Side Rendered Apps -->
-    <meta name="fragment" content="!">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://sajidmahamud835.github.io/">
-
-    <!-- Open Graph / Social Media -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Sajid Mahamud | Web Developer Portfolio">
-    <meta property="og:description"
-        content="Zero-dependency SPA portfolio with physics-based animations. Built with pure HTML5, CSS3, and Vanilla JavaScript.">
-    <meta property="og:url" content="https://sajidmahamud835.github.io/">
-    <meta property="og:image" content="https://sajidmahamud835.github.io/developer-portfolio/assets/favicon.png">
-
-    <!-- Google Font -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Developer Sajid's Portfolio</title>
+    <!-- google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles/variables.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <!-- stylesheet -->
     <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/animations.css">
-    <link rel="stylesheet" href="styles/mobile-nav.css">
-    <link rel="stylesheet" href="styles/modal.css">
-    <link rel="stylesheet" href="styles/services.css">
-    <link rel="stylesheet" href="styles/gig-detail.css">
-    <link rel="stylesheet" href="styles/typography.css">
-    <link rel="stylesheet" href="styles/apps.css">
-    <link rel="stylesheet" href="styles/contact-popup.css">
 </head>
 
 <body>
-    <!-- Project Modal -->
-    <div id="project-modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeProjectModal()">×</button>
-            <div class="modal-header">
-                <h2 class="modal-title" id="modal-title">Project Name</h2>
-                <span class="modal-language" id="modal-language">Language</span>
+    <!-- header start -->
+    <header>
+        <!-- top banner section start -->
+        <section id="top-banner">
+            <div class="container flex vartical-center">
+                <!-- left side -->
+                <div class="half-width">
+                    <h1>Welcome To</h1>
+                    <h1><span class="text-orange">Web Developer Sajid</span><small class="text-red">'s</small>
+                        Potfolio!
+                    </h1>
+                    <h3>Freelancer | Web Developer</h3>
+                    <p>Looking for a web developer? I know there are many web developers out there. Some of them know
+                        thousand
+                        of languages and technologies. Some of them have 20 years of experience. Choosing them will
+                        definitely
+                        be
+                        the
+                        right choice. But <b>if you are looking for someone who is dedicated to what he does, I will be
+                            perfect
+                            for you</b>.
+                    </p>
+                    <a class="anchor-button button-bg-primary" href="#contact_me">Contact Me</a>
+                </div>
+                <!-- right side -->
+                <div class="half-width">
+                    <img src="images/sajid-photo.png" alt="Web Developer Sajid">
+                </div>
             </div>
-            <div class="modal-body">
-                <p class="modal-description" id="modal-description">Description</p>
-                <ul class="modal-features" id="modal-features"></ul>
-                <p class="modal-tech" id="modal-tech"></p>
+        </section>
+        <!-- top banner section end -->
+    </header>
+    <!-- header end -->
+    <main>
+        <!-- dream-big section start -->
+        <section id="dream-big">
+            <div class="flex container">
+                <!-- left side -->
+                <div class="half-width">
+                    <img src="images/sajid-photo-thumbs-up.png" alt="Web Developer Sajid's Photo Thumbs up">
+                </div>
+                <!-- right side -->
+                <div class="half-width">
+                    <h2>Dream Big</h2>
+                    <h3>Not just a web developer</h3>
+                    <p>Nowadays people have multiple devices. It's very confusing to have a different user interface for
+                        different devices. I want to dedicate myself to <strong>a user-friendly and responsive frontend
+                            for
+                            all
+                            devices</strong>. So that user doesn't actually feel that he switched his device. And I'm
+                        ready
+                        to
+                        learn any new
+                        language and technology for this.</p>
+                    <a class="anchor-button button-bg-primary" href="#my-expertise">My Expertise</a>
+                    <a class="anchor-button button-bg-secondary" href="#download-resume">Download Resume</a>
+                </div>
             </div>
-            <div class="modal-footer">
-                <a id="modal-github" href="#" target="_blank" class="anchor-button button-bg-primary">View on GitHub</a>
-            </div>
-        </div>
-    </div>
+        </section>
+        <!-- dream-big section start -->
 
-    <!-- Contact Popup Modal -->
-    <div id="contact-popup">
-        <div class="contact-popup-content">
-            <button class="popup-close" onclick="closeContactPopup()">×</button>
-            <h3>Get In Touch 👋</h3>
-
-            <div class="contact-options">
-                <a href="mailto:sajid@sajidmahamud.com" class="contact-option">
-                    <div class="contact-option-icon">📧</div>
-                    <div class="contact-option-text">
-                        <strong>Email Me</strong>
-                        <span>sajid@sajidmahamud.com</span>
+        <!-- exprience section start -->
+        <section id="exprience">
+            <div class="container">
+                <h1>Expriences</h1>
+                <div class="grid">
+                    <!-- information box 1 -->
+                    <div class="info-box border-style-1">
+                        <h2>Full Stack Web Developer</h2>
+                        <h3 class="text-orange">2020-Present | MERN Stack Developer</h3>
+                        <p>I love learning new things. Especially new technologies and programming languages Mongo DB,
+                            Express,
+                            React Js, Node Js. That's why I've learned MERN Stack. I am now a master of HTML, CSS, and
+                            JavaScript. I
+                            know everything needed to make a website functional and efficient. I didn't stop with the
+                            web. I
+                            went
+                            beyond with most popular Javascript framework called Vue JS. I even know the deployment,
+                            server,
+                            and
+                            security. I'm looking to get hired as a front-end developer or full-stack developer.</p>
                     </div>
-                </a>
+                    <!-- information box 2 -->
+                    <div class="info-box border-style-2">
+                        <h2>Freelance Web Developer</h2>
+                        <h3 class="text-orange">2019-2020 | Full Stack Web Developer</h3>
+                        <p>I'd selected freelancing as my career. I started developing entire websites myself for my
+                            clients
+                            at
+                            Fiverr
+                            with HTML, CSS, Bootstrap, JavaScipt, PHP, and MySQL. I used Laravel in all of my projects.
+                            Within
+                            one
+                            year created a team to provide better service to my clients. These two years were the years
+                            of
+                            experience. I had to learn many new things.</p>
 
-                <a href="https://calendly.com/sajidmahamud835" target="_blank" rel="noopener" class="contact-option">
-                    <div class="contact-option-icon">📅</div>
-                    <div class="contact-option-text">
-                        <strong>Schedule a Call</strong>
-                        <span>Book a 15-min intro chat</span>
                     </div>
-                </a>
-
-                <a href="https://linkedin.com/in/sajidmahamud835" target="_blank" rel="noopener" class="contact-option">
-                    <div class="contact-option-icon">💼</div>
-                    <div class="contact-option-text">
-                        <strong>LinkedIn</strong>
-                        <span>Connect with me</span>
+                    <!-- information box 3 -->
+                    <div class="info-box border-style-3">
+                        <h2>Wordpress Theme Developer</h2>
+                        <h3 class="text-orange">2015-2019 | Wordpress Developer</h3>
+                        <p>At that time, WordPress was very popular for Blogs and E-commerce. I self-learned HTML, CSS
+                            for
+                            customizing themes. After a year, I also learned a little bit of PHP for debugging purposes.
+                            I
+                            started
+                            developing custom plugins and themes for my clients. I used to make only e-commerce websites
+                            at
+                            that
+                            time.</p>
                     </div>
-                </a>
+                </div>
             </div>
-
-            <div class="contact-divider">or send a quick message</div>
-
-            <form class="contact-mini-form" action="https://formspree.io/f/xpwaqjrj" method="POST">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" placeholder="Your Message..." required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Desktop Navigation -->
-    <nav class="navbar">
-        <div class="nav-brand">
-            <a href="?" onclick="route(event)">
-                <span class="text-orange">Sajid</span>Dev
-            </a>
-        </div>
-        <ul class="nav-links">
-            <li><a href="?" onclick="route(event)" class="nav-link">Home</a></li>
-            <li><a href="?route=about" onclick="route(event)" class="nav-link">About</a></li>
-            <li><a href="?route=services" onclick="route(event)" class="nav-link">Services</a></li>
-            <li><a href="?route=portfolio" onclick="route(event)" class="nav-link">Portfolio</a></li>
-            <li><a href="?route=blog" onclick="route(event)" class="nav-link">Blog</a></li>
-            <li><a href="?route=contact" onclick="route(event)" class="nav-link">Contact</a></li>
-            <li>
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
-                    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                </button>
-            </li>
-        </ul>
-        <button class="nav-toggle" aria-label="Toggle navigation">
-            <span class="hamburger"></span>
-        </button>
-    </nav>
-
-    <!-- Mobile Bottom Navigation (4 Items) -->
-    <nav class="mobile-nav">
-        <a href="?route=apps" onclick="route(event)" class="mobile-nav-link">
-            <span class="nav-icon">📱</span>
-            <span class="nav-label">Apps</span>
-        </a>
-        <a href="?" onclick="route(event)" class="mobile-nav-link">
-            <span class="nav-icon">🏠</span>
-            <span class="nav-label">Home</span>
-        </a>
-        <a href="?route=blog" onclick="route(event)" class="mobile-nav-link">
-            <span class="nav-icon">📰</span>
-            <span class="nav-label">Feed</span>
-        </a>
-        <button onclick="openContactPopup()" class="mobile-nav-link mobile-nav-btn">
-            <span class="nav-icon">✉️</span>
-            <span class="nav-label">Contact</span>
-        </button>
-    </nav>
-
-    <!-- Main App Container - Views render here -->
-    <main id="app">
-        <!-- Content injected by router -->
+        </section>
+        <!-- exprience section end -->
     </main>
-
-    <!-- Footer -->
     <footer>
-        <p>© 2026 Sajid Mahamud. All rights reserved.</p>
+        <p>© 2021 Sajid Mahamud. All rights reserved.</p>
     </footer>
-
-    <!-- Application Scripts -->
-    <script type="module" src="js/app.js"></script>
 </body>
 
 </html>
