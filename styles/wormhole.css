@@ -119,3 +119,68 @@
         opacity: 0;
     }
 }
+
+/* ============================================
+   MOBILE: Game-Like Slide Transition
+   ============================================ */
+@media (max-width: 768px) {
+
+    /* Hide wormhole on mobile */
+    .wormhole,
+    .wormhole::before,
+    .wormhole::after,
+    .photon-ring {
+        display: none !important;
+    }
+
+    #wormhole-overlay.active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    /* Game-like slide effect */
+    #wormhole-overlay::before {
+        content: '🚀';
+        position: absolute;
+        font-size: 80px;
+        animation: rocketFly 1.5s ease-in-out forwards;
+    }
+
+    #wormhole-overlay::after {
+        content: 'Loading...';
+        position: absolute;
+        bottom: 30%;
+        font-size: 24px;
+        font-weight: 600;
+        color: white;
+        letter-spacing: 2px;
+        animation: pulseText 0.8s ease-in-out infinite alternate;
+    }
+}
+
+@keyframes rocketFly {
+    0% {
+        transform: translateY(100vh) rotate(-45deg);
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-100vh) rotate(-45deg);
+        opacity: 0;
+    }
+}
+
+@keyframes pulseText {
+    from {
+        opacity: 0.5;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

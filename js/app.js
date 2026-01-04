@@ -146,6 +146,11 @@ document.addEventListener('DOMContentLoaded', () => {
     import('./utils/scroll-nav.js').then(module => {
         new module.ScrollNavigator();
     });
+
+    // Initialize iOS Add to Home Screen Prompt
+    import('./utils/ios-prompt.js').then(module => {
+        module.initIOSInstallPrompt();
+    });
 });
 
 // Export for use in views
