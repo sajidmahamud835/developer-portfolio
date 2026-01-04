@@ -4,6 +4,7 @@
  */
 
 import { projects, projectCategories } from '../data/portfolio-data.js';
+import { getRepoStats } from '../utils/github-stats.js';
 
 export function render() {
     return `
@@ -41,7 +42,10 @@ export function render() {
                 <div class="modal-body">
                     <div class="modal-header">
                         <span id="modal-category" class="badge"></span>
-                        <h2 id="modal-title"></h2>
+                        <div style="display: flex; gap: 15px; align-items: center; margin-top: 5px;">
+                            <h2 id="modal-title" style="margin:0;"></h2>
+                            <div id="modal-stats" style="font-size:0.9em; color:var(--text-secondary); display:flex; gap:10px;"></div>
+                        </div>
                     </div>
                     
                     <div class="modal-tech-stack" id="modal-tech"></div>
@@ -84,8 +88,13 @@ function renderProjectCard(project, index) {
             </div>
             
             <div class="project-card-body" style="flex-grow: 1; display: flex; flex-direction: column;">
-                <div class="project-title-row" style="margin-bottom: 10px;">
+                <div class="project-title-row" style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-start;">
                     <h3 style="margin: 0; font-size: 1.2rem;">${project.title}</h3>
+                </div>
+
+                <!-- Live Stats Placeholder -->
+                <div class="project-stats" id="stats-${project.id}" style="display: flex; gap: 12px; font-size: 0.8em; color: var(--text-secondary); margin-bottom: 8px; min-height: 20px;">
+                    <!-- Populated by JS -->
                 </div>
                 
                 <p class="project-description" style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 15px; flex-grow: 1;">
@@ -103,97 +112,130 @@ function renderProjectCard(project, index) {
     `;
 }
 
-export function init() {
-    import('../utils/animations.js').then(module => {
-        module.observeElements();
-    });
+// Helper to update card stats asynchronously
+async function updateCardStats(project) {
+    if (!project.github) return;
+    const stats = await getRepoStats(project.github);
+    if (stats) {
+        const statsEl = document.getElementById(`stats-${project.id}`);
+        if (statsEl) {
+            statsEl.innerHTML = `
+                <span title="Stars"><span style="margin-right:4px">⭐</span>${stats.stars}</span>
+                <span title="Forks"><span style="margin-right:4px">🍴</span>${stats.forks}</span>
+            `;
+        }
+    } // Close updateCardStats
 
-    // Expose modal functions
-    window.openProjectModal = openProjectModal;
-    window.closeProjectModal = closeProjectModal;
+    export function init() {
+        import('../utils/animations.js').then(module => {
+            module.observeElements();
+        });
 
-    // Filter Logic
-    const filterBtns = document.querySelectorAll('.category-btn');
-    const cards = document.querySelectorAll('.project-card');
+        // Expose modal functions
+        window.openProjectModal = openProjectModal;
+        window.closeProjectModal = closeProjectModal;
 
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Active state
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+        // Filter Logic
+        const filterBtns = document.querySelectorAll('.category-btn');
+        const cards = document.querySelectorAll('.project-card');
 
-            const category = btn.dataset.category;
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Active state
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
 
-            cards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'flex';
-                    setTimeout(() => card.style.opacity = '1', 50);
-                } else {
-                    card.style.opacity = '0';
-                    setTimeout(() => card.style.display = 'none', 300);
-                }
+                const category = btn.dataset.category;
+
+                cards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'flex';
+                        setTimeout(() => card.style.opacity = '1', 50);
+                    } else {
+                        card.style.opacity = '0';
+                        setTimeout(() => card.style.display = 'none', 300);
+                    }
+                });
             });
         });
-    });
-}
 
-function openProjectModal(projectId) {
-    const project = projects.find(p => p.id === projectId);
-    if (!project) return;
-
-    const modal = document.getElementById('project-modal');
-
-    // Populate Data
-    document.getElementById('modal-title').textContent = project.title;
-    document.getElementById('modal-category').textContent = project.category.toUpperCase();
-    document.getElementById('modal-description').textContent = project.description;
-
-    // Tech Stack
-    const techContainer = document.getElementById('modal-tech');
-    techContainer.innerHTML = project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('');
-
-    // Features
-    const featuresList = document.getElementById('modal-features');
-    if (project.features && project.features.length) {
-        featuresList.innerHTML = project.features.map(f => `<li>${f}</li>`).join('');
-        featuresList.parentElement.style.display = 'block';
-    } else {
-        featuresList.parentElement.style.display = 'none';
+        // Initialize stats
+        projects.forEach(p => updateCardStats(p));
     }
 
-    // Links
-    const githubBtn = document.getElementById('modal-github');
-    githubBtn.href = project.github;
+    function openProjectModal(projectId) {
+        const project = projects.find(p => p.id === projectId);
+        if (!project) return;
 
-    const demoBtn = document.getElementById('modal-demo');
-    if (project.demo) {
-        demoBtn.href = project.demo;
-        demoBtn.style.display = 'inline-block';
-    } else {
-        demoBtn.style.display = 'none';
+        const modal = document.getElementById('project-modal');
+
+        // Populate Data
+        document.getElementById('modal-title').textContent = project.title;
+        document.getElementById('modal-category').textContent = project.category.toUpperCase();
+        document.getElementById('modal-description').textContent = project.description;
+
+        // Live Stats in Modal
+        const statsContainer = document.getElementById('modal-stats');
+        if (statsContainer) {
+            statsContainer.innerHTML = '<span style="opacity:0.6">Loading...</span>';
+            getRepoStats(project.github).then(stats => {
+                if (stats) {
+                    statsContainer.innerHTML = `
+                        <span title="Stars" style="display:flex; align-items:center; color:#e3b341">⭐ ${stats.stars}</span>
+                        <span title="Forks" style="display:flex; align-items:center; margin-left:10px;">🍴 ${stats.forks}</span>
+                    `;
+                } else {
+                    statsContainer.innerHTML = '';
+                }
+            });
+        }
+
+        // Tech Stack
+        const techContainer = document.getElementById('modal-tech');
+        techContainer.innerHTML = project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('');
+
+        // Features
+        const featuresList = document.getElementById('modal-features');
+        if (project.features && project.features.length) {
+            featuresList.innerHTML = project.features.map(f => `<li>${f}</li>`).join('');
+            featuresList.parentElement.style.display = 'block';
+        } else {
+            featuresList.parentElement.style.display = 'none';
+        }
+
+        // Links
+        const githubBtn = document.getElementById('modal-github');
+        githubBtn.href = project.github;
+
+        const demoBtn = document.getElementById('modal-demo');
+        if (project.demo) {
+            demoBtn.href = project.demo;
+            demoBtn.style.display = 'inline-block';
+        } else {
+            demoBtn.style.display = 'none';
+        }
+
+        // Show
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        // Close handlers
+        modal.onclick = (e) => {
+            if (e.target === modal) closeProjectModal();
+        };
+
+        document.addEventListener('keydown', handleEscapeKey);
     }
 
-    // Show
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-
-    // Close handlers
-    modal.onclick = (e) => {
-        if (e.target === modal) closeProjectModal();
-    };
-
-    document.addEventListener('keydown', handleEscapeKey);
-}
-
-function closeProjectModal() {
-    const modal = document.getElementById('project-modal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
+    function closeProjectModal() {
+        const modal = document.getElementById('project-modal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        document.removeEventListener('keydown', handleEscapeKey);
     }
-    document.removeEventListener('keydown', handleEscapeKey);
-}
 
-function handleEscapeKey(e) {
-    if (e.key === 'Escape') closeProjectModal();
-}
+    function handleEscapeKey(e) {
+        if (e.key === 'Escape') closeProjectModal();
+    }
