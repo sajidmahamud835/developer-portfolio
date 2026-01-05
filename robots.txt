@@ -1,0 +1,16 @@
+# https://www.robotstxt.org/robotstxt.html
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow non-essential directories
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /.nojekyll
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://sajidmahamud835.github.io/sitemap.xml
